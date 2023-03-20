@@ -5,7 +5,6 @@ class Ball {
     geometry: THREE.SphereGeometry;
     material: THREE.MeshPhongMaterial;
     mesh: THREE.Mesh;
-
     radius: number;
     tilt: number;
     rotationSpeed: number;

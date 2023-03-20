@@ -1,20 +1,22 @@
 import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {initEmptyScene, initLevel} from "./util/init";
+import {initEmptyScene, initEvents, initLevel} from "./util/init";
 import {render, resize} from "./frame/render";
 import {animate} from "./frame/animate";
 import {Level} from "./logic/level";
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
 
 class App {
 
     scene: THREE.Scene;
     camera: THREE.PerspectiveCamera;
-    renderer: THREE.Renderer;
+    composer: EffectComposer;
     control: OrbitControls;
     level: Level;
 
     constructor() {
         initEmptyScene(this);
+        initEvents(this);
         initLevel(this, 1);
     }
 
@@ -28,10 +30,6 @@ class App {
         render(this);
         this.control.update();
         requestAnimationFrame(this.nextFrame);
-    }
-
-    onResize = () => {
-        resize(this);
     }
 }
 

@@ -1,8 +1,12 @@
 import * as THREE from 'three';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
+import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
+import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
+import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
 import {App} from "../main";
 import {Planet} from "../model/planet";
 import {Level} from "../logic/level";
+import {onMouseMove, onResize} from "../logic/event";
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -15,20 +19,25 @@ function initEmptyScene(app: App) {
 
     // ILLUMINATION TODO
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
-
+    scene.add(ambientLight);
     const spotlight = new THREE.SpotLight(0xffffff);
     spotlight.position.set(0, 100, 100);
     spotlight.castShadow = true;
-
-    scene.add(ambientLight);
     scene.add(spotlight);
 
     // RENDERER
-    const renderer = new THREE.WebGLRenderer({antialias: true});
+    const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
     renderer.setClearColor(new THREE.Color(0xffffff));
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
+
+    // POST PROCESSING
+    const composer = new EffectComposer(renderer);
+    const render = new RenderPass(scene, camera);
+    composer.addPass(render);
+    const outline = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
+    composer.addPass(outline);
 
     // CONTROLS
     const control = new OrbitControls(camera, renderer.domElement);
@@ -38,8 +47,13 @@ function initEmptyScene(app: App) {
 
     app.scene = scene;
     app.camera = camera;
-    app.renderer = renderer;
+    app.composer = composer;
     app.control = control;
+}
+
+function initEvents(app: App) {
+    window.addEventListener('resize', (event: Event) => onResize(event, app), false);
+    window.addEventListener('mousemove', (event: MouseEvent) => onMouseMove(event, app), false);
 }
 
 function initLevel(app: App, num: number) {
@@ -66,4 +80,4 @@ function initLevel(app: App, num: number) {
     app.level = level;
 }
 
-export {initEmptyScene, initLevel};
+export {initEmptyScene, initEvents, initLevel};
