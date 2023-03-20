@@ -6,7 +6,7 @@ import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
 import {App} from "../main";
 import {Planet} from "../model/planet";
 import {Level} from "../logic/level";
-import {onMouseMove, onResize} from "../logic/event";
+import {onMouseClick, onMouseMove, onResize} from "../logic/event";
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -54,6 +54,7 @@ function initEmptyScene(app: App) {
 function initEvents(app: App) {
     window.addEventListener('resize', (event: Event) => onResize(event, app), false);
     window.addEventListener('mousemove', (event: MouseEvent) => onMouseMove(event, app), false);
+    window.addEventListener('click', (event: MouseEvent) => onMouseClick(event, app), false);
 }
 
 function initLevel(app: App, num: number) {

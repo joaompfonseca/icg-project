@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import {App} from "../main";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
+import {Object3D} from "three";
+import * as assert from "assert";
 
 function onResize(event: Event, app: App) {
     app.camera.aspect = window.innerWidth / window.innerHeight;
@@ -17,11 +19,25 @@ function onMouseMove(event: MouseEvent, app: App) {
     // Cast a ray from camera to mouse
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, app.camera);
-    const intersects = raycaster.intersectObjects(app.scene.children, true);
+    const intersects = raycaster.intersectObjects(app.level.balls.map(ball => ball.mesh), true);
 
     // Highlight the first intersected object
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
     outline.selectedObjects = (intersects.length > 0) ? [intersects[0].object] : [];
 }
 
-export {onResize, onMouseMove};
+function onMouseClick(event: MouseEvent, app: App) {
+    // Check if a ball was clicked
+    const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
+    if (outline.selectedObjects.length == 0)
+        return;
+
+    // Find selected ball
+    const ball = app.level.balls.find(ball => ball.mesh === outline.selectedObjects[0]);
+    if (ball === undefined)
+        return;
+
+    // TODO: Select ball
+}
+
+export {onResize, onMouseMove, onMouseClick};
