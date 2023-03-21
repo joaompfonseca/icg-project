@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {MeshPhongMaterial} from "three";
 
 class Ball {
 
@@ -9,18 +10,14 @@ class Ball {
     tilt: number;
     rotationSpeed: number;
 
-    constructor(position: THREE.Vector3, radius: number, tilt: number, rotationSpeed: number) {
+    constructor(radius: number, material: MeshPhongMaterial, tilt: number, rotationSpeed: number, position: THREE.Vector3) {
         this.radius = radius;
         this.tilt = tilt;
         this.rotationSpeed = rotationSpeed;
 
         // TODO: add more options
-        this.geometry = new THREE.SphereGeometry(radius, 3*radius, 3*radius);
-        this.material = new THREE.MeshPhongMaterial({
-            color: 0xff0000,
-            shininess: 1,
-            specular: 0xffffff
-        });
+        this.geometry = new THREE.SphereGeometry(radius, 2*radius, 2*radius);
+        this.material = material
         this.mesh = new THREE.Mesh(this.geometry, this.material);
 
         this.mesh.position.add(position);

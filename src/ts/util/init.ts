@@ -62,9 +62,17 @@ function initLevel(app: App, num: number) {
     let level = new Level();
 
     // Planet TODO
-    let planet = new Planet(new THREE.Vector3(-10, 10, 0), 10, 0, 0.01);
-    level.addBall(planet);
-    app.scene.add(planet.mesh);
+    let planet1 = new Planet(
+        10, new THREE.MeshPhongMaterial({color: 0xff0000, shininess: 1}),
+        0, 0.01, new THREE.Vector3(-30, 30, 0));
+    level.addBall(planet1);
+    app.scene.add(planet1.mesh);
+    let planet2 = new Planet(
+        7.5, new THREE.MeshPhongMaterial({color: 0x00ff00, shininess: 0.5}),
+        Math.PI/16, 0.05, new THREE.Vector3(30, 30, 0));
+    level.addBall(planet2);
+    app.scene.add(planet2.mesh);
+
 
     // Ground plane
     let planeGeometry = new THREE.PlaneGeometry(1000, 1000);

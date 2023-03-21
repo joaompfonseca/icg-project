@@ -1,8 +1,10 @@
+import * as THREE from 'three';
 import {Ball} from './ball';
+import {MeshPhongMaterial} from "three";
 
 class Planet extends Ball {
-    constructor(position: THREE.Vector3, radius: number, tilt: number, rotationSpeed: number) {
-        super(position, radius, tilt, rotationSpeed);
+    constructor(radius: number, material: MeshPhongMaterial, tilt: number, rotationSpeed: number, position: THREE.Vector3) {
+        super(radius, material, tilt, rotationSpeed, position);
     }
 
 }
