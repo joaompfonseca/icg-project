@@ -9,6 +9,7 @@ import {Level} from "../logic/level";
 import {onMouseClick, onMouseMove, onResize} from "../logic/event";
 import {Spaceship} from "../model/spaceship";
 import {CSS2DRenderer} from "three/examples/jsm/renderers/CSS2DRenderer";
+import {Player} from "../logic/player";
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -72,11 +73,11 @@ function initLevel(app: App, num: number) {
 
     // Planet TODO
     let planet1 = new Planet(app.scene, new THREE.MeshPhongMaterial({color: 0xff0000, shininess: 1}),
-        new THREE.Vector3(-30, 30, 0), 10, 0, 0.01, 0.025);
+        new THREE.Vector3(-30, 30, 0), 10, 0, 0.01, 0.025, Player.HUMAN);
     level.addBall(planet1);
     app.scene.add(planet1.mesh);
     let planet2 = new Planet(app.scene, new THREE.MeshPhongMaterial({color: 0x00ff00, shininess: 0.5}),
-        new THREE.Vector3(30, 40, -10), 7.5, Math.PI / 16, 0.05, 0.025);
+        new THREE.Vector3(30, 40, -10), 7.5, Math.PI / 16, 0.05, 0.025, Player.ENEMY);
     level.addBall(planet2);
     app.scene.add(planet2.mesh);
 

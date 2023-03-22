@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {MeshPhongMaterial} from "three";
 import {Spaceship} from "./spaceship";
 import {CSS2DObject} from "three/examples/jsm/renderers/CSS2DRenderer";
+import {Player} from "../logic/player";
 
 class Ball {
     scene: THREE.Scene;
@@ -12,11 +13,12 @@ class Ball {
     radius: number;
     tilt: number;
     rotationSpeed: number;
-    label: CSS2DObject;
+    table: CSS2DObject;
     spaceships: Spaceship[];
     orbitSpeed: number;
     spaceshipGroup: THREE.Group;
     mainGroup: THREE.Group;
+    owner: Player;
 
     constructor(
         scene: THREE.Scene,
@@ -25,7 +27,8 @@ class Ball {
         radius: number,
         tilt: number,
         rotationSpeed: number,
-        orbitSpeed: number
+        orbitSpeed: number,
+        owner: Player
     ) {
         this.scene = scene;
         this.material = material;
@@ -34,6 +37,7 @@ class Ball {
         this.tilt = tilt;
         this.rotationSpeed = rotationSpeed;
         this.orbitSpeed = orbitSpeed;
+        this.owner = owner;
 
         // Mesh
         this.geometry = new THREE.SphereGeometry(radius, 2 * radius, 2 * radius);
@@ -48,18 +52,23 @@ class Ball {
         this.spaceships = [];
         this.spaceshipGroup = new THREE.Group();
 
-        // Label
-        const div = document.createElement('div');
-        div.className = 'label';
-        this.label = new CSS2DObject(div);
-        this.label.position.set(0, 1.2 * radius, 0);
-        this.updateLabel();
+        // Info table
+        const elem = document.createElement('table');
+        const ownerRow = elem.insertRow(0);
+        ownerRow.insertCell(0).innerHTML = '<b>Owner</b>';
+        ownerRow.insertCell(1);
+        const spaceshipsRow = elem.insertRow(1);
+        spaceshipsRow.insertCell(0).innerHTML = '<b>Spaceships</b>';
+        spaceshipsRow.insertCell(1);
+        this.table = new CSS2DObject(elem);
+        this.table.position.set(0, 1.2 * radius, 0);
+        this.updateTable();
 
         // Add nodes to scene
         this.mainGroup = new THREE.Group();
         this.mainGroup.add(this.mesh);
         this.mainGroup.add(this.spaceshipGroup);
-        this.mainGroup.add(this.label);
+        this.mainGroup.add(this.table);
         this.mainGroup.position.copy(position);
         this.scene.add(this.mainGroup);
     }
@@ -73,7 +82,7 @@ class Ball {
         // Add spaceship to ball
         this.spaceships.push(spaceship);
         this.spaceshipGroup.add(spaceship.mesh);
-        this.updateLabel();
+        this.updateTable();
     }
 
     remSpaceship = () => {
@@ -82,7 +91,7 @@ class Ball {
         }
         const removed = this.spaceships.pop()!;
         this.spaceshipGroup.remove(removed.mesh);
-        this.updateLabel();
+        this.updateTable();
         return removed;
     }
 
@@ -90,8 +99,9 @@ class Ball {
         return this.spaceships.length;
     }
 
-    updateLabel = () => {
-        this.label.element.textContent = this.numSpaceships().toString();
+    updateTable = () => {
+        (<HTMLTableElement>this.table.element).rows[0].cells[1].innerHTML = this.owner.toString();
+        (<HTMLTableElement>this.table.element).rows[1].cells[1].innerHTML = this.spaceships.length.toString();
     }
 
     animate = () => {

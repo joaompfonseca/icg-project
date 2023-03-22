@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {Ball} from './ball';
+import {Player} from '../logic/player';
 
 class Planet extends Ball {
     constructor(
@@ -9,9 +10,10 @@ class Planet extends Ball {
         radius: number,
         tilt: number,
         rotationSpeed: number,
-        orbitSpeed: number
+        orbitSpeed: number,
+        owner: Player
     ) {
-        super(scene, material, position, radius, tilt, rotationSpeed, orbitSpeed);
+        super(scene, material, position, radius, tilt, rotationSpeed, orbitSpeed, owner);
     }
 
 }
