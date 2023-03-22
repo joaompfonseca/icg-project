@@ -5,11 +5,14 @@ import {render, resize} from "./frame/render";
 import {animate} from "./frame/animate";
 import {Level} from "./logic/level";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
+import {CSS2DRenderer} from "three/examples/jsm/renderers/CSS2DRenderer";
 
 class App {
 
     scene: THREE.Scene;
     camera: THREE.PerspectiveCamera;
+    renderer: THREE.WebGLRenderer;
+    labelRenderer: CSS2DRenderer;
     composer: EffectComposer;
     control: OrbitControls;
     level: Level;

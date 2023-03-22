@@ -1,6 +1,8 @@
 import {App} from "../main";
 
 function render(app: App) {
+    app.renderer.render(app.scene, app.camera);
+    app.labelRenderer.render(app.scene, app.camera);
     app.composer.render();
 }
 

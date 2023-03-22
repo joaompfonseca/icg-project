@@ -8,6 +8,7 @@ import {Planet} from "../model/planet";
 import {Level} from "../logic/level";
 import {onMouseClick, onMouseMove, onResize} from "../logic/event";
 import {Spaceship} from "../model/spaceship";
+import {CSS2DRenderer} from "three/examples/jsm/renderers/CSS2DRenderer";
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -32,6 +33,14 @@ function initEmptyScene(app: App) {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
+    document.querySelector('#output')!.appendChild(renderer.domElement);
+
+    // LABEL RENDERER
+    const labelRenderer = new CSS2DRenderer();
+    labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    labelRenderer.domElement.style.position = 'absolute';
+    labelRenderer.domElement.style.top = '0px';
+    document.querySelector('#output')!.appendChild(labelRenderer.domElement);
 
     // POST PROCESSING
     const composer = new EffectComposer(renderer);
@@ -41,13 +50,12 @@ function initEmptyScene(app: App) {
     composer.addPass(outline);
 
     // CONTROLS
-    const control = new OrbitControls(camera, renderer.domElement);
-
-    // Add the rendered image in the HTML DOM
-    document.querySelector('#output')!.appendChild(renderer.domElement);
+    const control = new OrbitControls(camera, labelRenderer.domElement);
 
     app.scene = scene;
     app.camera = camera;
+    app.renderer = renderer;
+    app.labelRenderer = labelRenderer;
     app.composer = composer;
     app.control = control;
 }
