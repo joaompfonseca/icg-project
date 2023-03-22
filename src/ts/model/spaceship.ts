@@ -1,13 +1,17 @@
 import * as THREE from 'three';
+import {Player} from "../logic/player";
 
 class Spaceship {
 
+    owner: Player;
     geometry: THREE.ConeGeometry;
     material: THREE.MeshPhongMaterial;
     mesh: THREE.Mesh;
     speed: number;
 
-    constructor() {
+    constructor(owner: Player) {
+        this.owner = owner;
+
         this.geometry = new THREE.ConeGeometry(0.5, 2, 4);
         this.geometry.rotateX(Math.PI / 2);
         this.material = new THREE.MeshPhongMaterial({color: 0x00ff00});

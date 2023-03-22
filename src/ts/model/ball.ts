@@ -74,11 +74,23 @@ class Ball {
     }
 
     addSpaceship = (spaceship: Spaceship) => {
+        // Spaceship from enemy
+        if (spaceship.owner !== this.owner) {
+            // Enemy spaceship destroys one spaceship
+            if (this.spaceships.length > 0) {
+                this.remSpaceship();
+                return;
+            }
+            // Start colonization TODO: timer
+            else {
+                this.owner = spaceship.owner;
+            }
+        }
         // Assign random position on orbit
         const randAngle = Math.random() * 2 * Math.PI;
         const randRadius = (1.25 + 0.5 * Math.random()) * this.radius;
         spaceship.setPosition(new THREE.Vector3(randRadius * Math.cos(randAngle), 0, randRadius * Math.sin(randAngle)));
-        spaceship.setRotation(new THREE.Euler(0, Math.PI-randAngle, 0, 'XYZ'));
+        spaceship.setRotation(new THREE.Euler(0, Math.PI - randAngle, 0, 'XYZ'));
         // Add spaceship to ball
         this.spaceships.push(spaceship);
         this.spaceshipGroup.add(spaceship.mesh);

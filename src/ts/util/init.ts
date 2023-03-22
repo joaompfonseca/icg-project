@@ -83,10 +83,10 @@ function initLevel(app: App, num: number) {
 
     // Spaceship TODO
     for (let i = 0; i < 10; i++) {
-        let spaceship = new Spaceship();
+        let spaceship = new Spaceship(Player.HUMAN);
         planet1.addSpaceship(spaceship);
     }
-    let spaceship2 = new Spaceship();
+    let spaceship2 = new Spaceship(Player.ENEMY);
     planet2.addSpaceship(spaceship2);
 
     // Ground plane
