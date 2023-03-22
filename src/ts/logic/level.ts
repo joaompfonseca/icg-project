@@ -20,6 +20,7 @@ class Level {
 
     addBall = (ball: Ball) => {
         this.balls.push(ball);
+        this.scene.add(ball.mainGroup);
     }
 
     findBall = (mesh: THREE.Mesh) => {

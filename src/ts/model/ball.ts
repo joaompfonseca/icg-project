@@ -5,7 +5,6 @@ import {CSS2DObject} from "three/examples/jsm/renderers/CSS2DRenderer";
 import {Player} from "../logic/player";
 
 class Ball {
-    scene: THREE.Scene;
     geometry: THREE.SphereGeometry;
     material: THREE.MeshPhongMaterial;
     mesh: THREE.Mesh;
@@ -21,7 +20,6 @@ class Ball {
     owner: Player;
 
     constructor(
-        scene: THREE.Scene,
         material: MeshPhongMaterial,
         position: THREE.Vector3,
         radius: number,
@@ -30,7 +28,6 @@ class Ball {
         orbitSpeed: number,
         owner: Player
     ) {
-        this.scene = scene;
         this.material = material;
         this.position = position;
         this.radius = radius;
@@ -42,7 +39,6 @@ class Ball {
         // Mesh
         this.geometry = new THREE.SphereGeometry(radius, 2 * radius, 2 * radius);
         this.mesh = new THREE.Mesh(this.geometry, material);
-        this.mesh.position.copy(position);
         this.mesh.rotateZ(tilt);
         this.mesh.castShadow = true;
         this.mesh.receiveShadow = true;
@@ -64,13 +60,12 @@ class Ball {
         this.table.position.set(0, 1.2 * radius, 0);
         this.updateTable();
 
-        // Add nodes to scene
+        // Add nodes to main group
         this.mainGroup = new THREE.Group();
         this.mainGroup.add(this.mesh);
         this.mainGroup.add(this.spaceshipGroup);
         this.mainGroup.add(this.table);
         this.mainGroup.position.copy(position);
-        this.scene.add(this.mainGroup);
     }
 
     addSpaceship = (spaceship: Spaceship) => {
@@ -113,7 +108,7 @@ class Ball {
 
     updateTable = () => {
         (<HTMLTableElement>this.table.element).rows[0].cells[1].innerHTML = this.owner.toString();
-        (<HTMLTableElement>this.table.element).rows[1].cells[1].innerHTML = this.spaceships.length.toString();
+        (<HTMLTableElement>this.table.element).rows[1].cells[1].innerHTML = this.numSpaceships().toString();
     }
 
     animate = () => {
