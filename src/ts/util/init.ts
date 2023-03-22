@@ -3,7 +3,7 @@ import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
-import {App} from "../main";
+import {App} from "../app";
 import {Planet} from "../model/planet";
 import {Level} from "../logic/level";
 import {onMouseClick, onMouseMove, onResize} from "../logic/event";
@@ -68,15 +68,15 @@ function initEvents(app: App) {
 
 function initLevel(app: App, num: number) {
     // TODO: Use number to load the correct level
-    let level = new Level();
+    let level = new Level(app.scene);
 
     // Planet TODO
     let planet1 = new Planet(app.scene, new THREE.MeshPhongMaterial({color: 0xff0000, shininess: 1}),
-        new THREE.Vector3(-30, 30, 0), 10, 0, 0.01);
+        new THREE.Vector3(-30, 30, 0), 10, 0, 0.01, 0.025);
     level.addBall(planet1);
     app.scene.add(planet1.mesh);
     let planet2 = new Planet(app.scene, new THREE.MeshPhongMaterial({color: 0x00ff00, shininess: 0.5}),
-        new THREE.Vector3(30, 30, 0), 7.5, Math.PI / 16, 0.05);
+        new THREE.Vector3(30, 30, 0), 7.5, Math.PI / 16, 0.05, 0.025);
     level.addBall(planet2);
     app.scene.add(planet2.mesh);
 

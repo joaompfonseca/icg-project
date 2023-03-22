@@ -13,16 +13,27 @@ class Ball {
     tilt: number;
     rotationSpeed: number;
     label: CSS2DObject;
-    spaceships: THREE.Group;
+    spaceships: Spaceship[];
+    orbitSpeed: number;
+    spaceshipGroup: THREE.Group;
     mainGroup: THREE.Group;
 
-    constructor(scene: THREE.Scene, material: MeshPhongMaterial, position: THREE.Vector3, radius: number, tilt: number, rotationSpeed: number) {
+    constructor(
+        scene: THREE.Scene,
+        material: MeshPhongMaterial,
+        position: THREE.Vector3,
+        radius: number,
+        tilt: number,
+        rotationSpeed: number,
+        orbitSpeed: number
+    ) {
         this.scene = scene;
         this.material = material;
         this.position = position;
         this.radius = radius;
         this.tilt = tilt;
         this.rotationSpeed = rotationSpeed;
+        this.orbitSpeed = orbitSpeed;
 
         // Mesh
         this.geometry = new THREE.SphereGeometry(radius, 2 * radius, 2 * radius);
@@ -34,19 +45,20 @@ class Ball {
         this.mesh.add(new THREE.AxesHelper(2 * radius)); // TODO: remove
 
         // Spaceships
-        this.spaceships = new THREE.Group();
+        this.spaceships = [];
+        this.spaceshipGroup = new THREE.Group();
 
         // Label
         const div = document.createElement('div');
         div.className = 'label';
-        div.textContent = this.spaceships.children.length.toString();
         this.label = new CSS2DObject(div);
         this.label.position.set(0, 1.2 * radius, 0);
+        this.updateLabel();
 
         // Add nodes to scene
         this.mainGroup = new THREE.Group();
         this.mainGroup.add(this.mesh);
-        this.mainGroup.add(this.spaceships);
+        this.mainGroup.add(this.spaceshipGroup);
         this.mainGroup.add(this.label);
         this.mainGroup.position.copy(position);
         this.scene.add(this.mainGroup);
@@ -59,19 +71,32 @@ class Ball {
         spaceship.mesh.position.add(new THREE.Vector3(randRadius * Math.cos(randAngle), 0, randRadius * Math.sin(randAngle)));
         spaceship.mesh.rotation.set(0, Math.PI / 2 - randAngle, -Math.PI / 2);
         // Add spaceship to ball
-        this.spaceships.add(spaceship.mesh);
-        this.label.element.textContent = this.spaceships.children.length.toString();
+        this.spaceships.push(spaceship);
+        this.spaceshipGroup.add(spaceship.mesh);
+        this.updateLabel();
     }
 
     remSpaceship = () => {
-        const success = this.spaceships.children.pop() !== undefined;
-        this.label.element.textContent = this.spaceships.children.length.toString();
-        return success;
+        if (this.spaceships.length === 0) {
+            return null;
+        }
+        const removed = this.spaceships.pop()!;
+        this.spaceshipGroup.remove(removed.mesh);
+        this.updateLabel();
+        return removed;
+    }
+
+    numSpaceships = () => {
+        return this.spaceships.length;
+    }
+
+    updateLabel = () => {
+        this.label.element.textContent = this.numSpaceships().toString();
     }
 
     animate = () => {
         this.mesh.rotation.y += this.rotationSpeed;
-        this.spaceships.rotation.y += 0.025;
+        this.spaceshipGroup.rotation.y += this.orbitSpeed;
     }
 }
 

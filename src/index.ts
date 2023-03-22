@@ -1,4 +1,4 @@
-import {App} from './ts/main';
+import {App} from './ts/app';
 
 window.onload = () => {
     let app = new App();

@@ -1,4 +1,4 @@
-import {App} from "../main";
+import {App} from "../app";
 
 function render(app: App) {
     app.renderer.render(app.scene, app.camera);
