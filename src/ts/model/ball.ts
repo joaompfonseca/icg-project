@@ -63,6 +63,12 @@ class Ball {
         this.label.element.textContent = this.spaceships.children.length.toString();
     }
 
+    remSpaceship = () => {
+        const success = this.spaceships.children.pop() !== undefined;
+        this.label.element.textContent = this.spaceships.children.length.toString();
+        return success;
+    }
+
     animate = () => {
         this.mesh.rotation.y += this.rotationSpeed;
         this.spaceships.rotation.y += 0.025;

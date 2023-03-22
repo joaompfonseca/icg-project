@@ -3,6 +3,7 @@ import {App} from "../main";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {Object3D} from "three";
 import * as assert from "assert";
+import {Spaceship} from "../model/spaceship";
 
 function onResize(event: Event, app: App) {
     app.camera.aspect = window.innerWidth / window.innerHeight;
@@ -25,17 +26,18 @@ function onMouseMove(event: MouseEvent, app: App) {
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
     if (intersects.length > 0) {
         console.log("MOVE: in ball; len=", outline.selectedObjects.length);
-        if (app.level.selected === null)
+        if (app.level.selected === null) {
             outline.selectedObjects = [intersects[0].object];
-        else if (app.level.selected.mesh !== intersects[0].object)
+        } else if (app.level.selected.mesh !== intersects[0].object) {
             outline.selectedObjects = [app.level.selected.mesh, intersects[0].object];
-    }
-    else {
+        }
+    } else {
         console.log("MOVE: out ball; len=", outline.selectedObjects.length);
-        if (app.level.selected === null)
+        if (app.level.selected === null) {
             outline.selectedObjects = [];
-        else
+        } else {
             outline.selectedObjects = [app.level.selected.mesh];
+        }
     }
 }
 
@@ -54,12 +56,18 @@ function onMouseClick(event: MouseEvent, app: App) {
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
     if (intersects.length > 0) {
         console.log("CLICK: in ball; len=", outline.selectedObjects.length);
-        if (app.level.selected === null)
+        if (app.level.selected === null) {
             outline.selectedObjects = [intersects[0].object];
-        else if (app.level.selected.mesh !== intersects[0].object)
-            console.log("Sending spaceships")
-    }
-    else {
+        }
+        else if (app.level.selected.mesh !== intersects[0].object) {
+            console.log("Sending spaceships");
+            const fromBall = app.level.selected;
+            const toBall = app.level.balls.find(ball => ball.mesh === intersects[0].object)!;
+            const success = fromBall.remSpaceship();
+            if (success)
+                toBall.addSpaceship(new Spaceship());
+        }
+    } else {
         console.log("CLICK: out ball; len=", outline.selectedObjects.length);
         outline.selectedObjects = [];
     }

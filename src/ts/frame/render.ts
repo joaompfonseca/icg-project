@@ -9,7 +9,7 @@ function render(app: App) {
 function resize(app: App) {
     app.camera.aspect = window.innerWidth / window.innerHeight;
     app.camera.updateProjectionMatrix();
-    app.composer.renderer.setSize(window.innerWidth, window.innerHeight);
+    app.renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 export {render, resize};
