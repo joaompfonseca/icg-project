@@ -68,8 +68,8 @@ class Ball {
         // Assign random position on orbit
         const randAngle = Math.random() * 2 * Math.PI;
         const randRadius = (1.25 + 0.5 * Math.random()) * this.radius;
-        spaceship.mesh.position.add(new THREE.Vector3(randRadius * Math.cos(randAngle), 0, randRadius * Math.sin(randAngle)));
-        spaceship.mesh.rotation.set(0, Math.PI / 2 - randAngle, -Math.PI / 2);
+        spaceship.setPosition(new THREE.Vector3(randRadius * Math.cos(randAngle), 0, randRadius * Math.sin(randAngle)));
+        spaceship.setRotation(new THREE.Euler(0, Math.PI-randAngle, 0, 'XYZ'));
         // Add spaceship to ball
         this.spaceships.push(spaceship);
         this.spaceshipGroup.add(spaceship.mesh);

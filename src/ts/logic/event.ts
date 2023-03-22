@@ -20,7 +20,8 @@ function onMouseMove(event: MouseEvent, app: App) {
     // Cast ray from camera to mouse
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, app.camera);
-    const intersects = raycaster.intersectObjects<THREE.Mesh>(app.level.balls.map(ball => ball.mesh), true);
+    const intersects = raycaster.intersectObjects(app.level.balls.map(ball => ball.mesh), true)
+        .filter(intersect => intersect.object instanceof THREE.Mesh);
 
     // Post-processing outline
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
@@ -34,7 +35,7 @@ function onMouseMove(event: MouseEvent, app: App) {
         }
     }
     else {
-        const targetMesh = intersects[0].object;
+        const targetMesh = <THREE.Mesh>intersects[0].object;
         const targetBall = app.level.findBall(targetMesh)!;
         if (app.level.isBallSelected() && app.level.selected !== targetBall) {
             outline.selectedObjects = [app.level.selected!.mesh, targetMesh];
@@ -54,7 +55,8 @@ function onMouseClick(event: MouseEvent, app: App) {
     // Cast ray from camera to mouse
     const raycaster = new THREE.Raycaster();
     raycaster.setFromCamera(mouse, app.camera);
-    const intersects = raycaster.intersectObjects<THREE.Mesh>(app.level.balls.map(ball => ball.mesh), true);
+    const intersects = raycaster.intersectObjects(app.level.balls.map(ball => ball.mesh), true)
+        .filter(intersect => intersect.object instanceof THREE.Mesh);
 
     // Post-processing outline
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
@@ -64,9 +66,8 @@ function onMouseClick(event: MouseEvent, app: App) {
         outline.selectedObjects = [];
     }
     else {
-        const targetMesh = intersects[0].object;
+        const targetMesh = <THREE.Mesh>intersects[0].object;
         const targetBall = app.level.findBall(targetMesh)!;
-        console.log(targetBall)
         if (app.level.isBallSelected() && app.level.selected !== targetBall) {
             const fromBall = app.level.selected!;
             // Send one spaceship from fromBall to targetBall

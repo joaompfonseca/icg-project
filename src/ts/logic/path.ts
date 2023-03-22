@@ -16,10 +16,14 @@ class Path {
         this.spaceship = spaceship;
 
         this.direction = new THREE.Vector3();
-        this.direction.subVectors(this.targetBall.position, this.spaceship.mesh.position);
+        this.direction.subVectors(this.targetBall.position, this.fromBall.position);
         this.direction.normalize();
 
-        this.totalDistance = this.spaceship.mesh.position.distanceTo(this.targetBall.mesh.position)
+        this.spaceship.setPosition(this.fromBall.position.clone().addScaledVector(this.direction, 1.25 * this.fromBall.radius));
+        this.spaceship.lookAt(this.targetBall.position);
+
+        this.totalDistance = this.fromBall.position.distanceTo(this.targetBall.position)
+            - 1.25 * this.fromBall.radius
             - 1.25 * this.targetBall.radius;
         this.travelDistance = 0;
     }

@@ -76,7 +76,7 @@ function initLevel(app: App, num: number) {
     level.addBall(planet1);
     app.scene.add(planet1.mesh);
     let planet2 = new Planet(app.scene, new THREE.MeshPhongMaterial({color: 0x00ff00, shininess: 0.5}),
-        new THREE.Vector3(30, 30, 0), 7.5, Math.PI / 16, 0.05, 0.025);
+        new THREE.Vector3(30, 40, -10), 7.5, Math.PI / 16, 0.05, 0.025);
     level.addBall(planet2);
     app.scene.add(planet2.mesh);
 
