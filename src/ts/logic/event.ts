@@ -21,23 +21,55 @@ function onMouseMove(event: MouseEvent, app: App) {
     raycaster.setFromCamera(mouse, app.camera);
     const intersects = raycaster.intersectObjects(app.level.balls.map(ball => ball.mesh), true);
 
-    // Highlight the first intersected object
+    // Highlight the first intersected ball
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
-    outline.selectedObjects = (intersects.length > 0) ? [intersects[0].object] : [];
+    if (intersects.length > 0) {
+        console.log("MOVE: in ball; len=", outline.selectedObjects.length);
+        if (app.level.selected === null)
+            outline.selectedObjects = [intersects[0].object];
+        else if (app.level.selected.mesh !== intersects[0].object)
+            outline.selectedObjects = [app.level.selected.mesh, intersects[0].object];
+    }
+    else {
+        console.log("MOVE: out ball; len=", outline.selectedObjects.length);
+        if (app.level.selected === null)
+            outline.selectedObjects = [];
+        else
+            outline.selectedObjects = [app.level.selected.mesh];
+    }
 }
 
 function onMouseClick(event: MouseEvent, app: App) {
-    // Check if a ball was clicked
+    // Mouse position
+    const mouse = new THREE.Vector2();
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    // Cast a ray from camera to mouse
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, app.camera);
+    const intersects = raycaster.intersectObjects(app.level.balls.map(ball => ball.mesh), true);
+
+    // Highlight the first intersected ball
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
-    if (outline.selectedObjects.length == 0)
-        return;
+    if (intersects.length > 0) {
+        console.log("CLICK: in ball; len=", outline.selectedObjects.length);
+        if (app.level.selected === null)
+            outline.selectedObjects = [intersects[0].object];
+        else if (app.level.selected.mesh !== intersects[0].object)
+            console.log("Sending spaceships")
+    }
+    else {
+        console.log("CLICK: out ball; len=", outline.selectedObjects.length);
+        outline.selectedObjects = [];
+    }
 
     // Find selected ball
     const ball = app.level.balls.find(ball => ball.mesh === outline.selectedObjects[0]);
     if (ball === undefined)
-        return;
-
-    // TODO: Select ball
+        app.level.selected = null;
+    else
+        app.level.selected = ball;
 }
 
 export {onResize, onMouseMove, onMouseClick};
