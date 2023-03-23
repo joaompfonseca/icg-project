@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import {Ball} from '../model/ball';
 import {Path} from './path';
+import {Owner} from "./owner";
+import {Spaceship} from "../model/spaceship";
 
 class Level {
     scene: THREE.Scene;
@@ -16,6 +18,14 @@ class Level {
         this.paths = [];
         this.pathGroup = new THREE.Group();
         this.scene.add(this.pathGroup);
+        // TODO: change location of this?
+        setInterval(() => {
+            this.balls.forEach(ball => {
+                if (ball.owner !== Owner.NONE) {
+                    ball.addSpaceship(new Spaceship(ball.owner));
+                }
+            });
+        }, 1000);
     }
 
     addBall = (ball: Ball) => {
