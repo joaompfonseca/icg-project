@@ -18,7 +18,8 @@
           "rotationSpeed": 0.01,
           "orbitSpeed": 0.025,
           "owner": "Human",
-          "spaceships": 10
+          "spaceships": 10,
+          "maxSpaceships": 50
         }
       },
       {
@@ -38,7 +39,8 @@
           "rotationSpeed": 0.05,
           "orbitSpeed": 0.025,
           "owner": "Enemy",
-          "spaceships": 5
+          "spaceships": 5,
+          "maxSpaceships": 30
         }
       },
       {
@@ -58,7 +60,8 @@
           "rotationSpeed": 0.02,
           "orbitSpeed": 0.025,
           "owner": "None",
-          "spaceships": 0
+          "spaceships": 0,
+          "maxSpaceships": 75
         }
       }
     ]

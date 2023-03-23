@@ -9,10 +9,11 @@ class Planet extends Ball {
         radius: number,
         tilt: number,
         rotationSpeed: number,
+        maxSpaceships: number,
         orbitSpeed: number,
         owner: Owner
     ) {
-        super(material, position, radius, tilt, rotationSpeed, orbitSpeed, owner);
+        super(material, position, radius, tilt, rotationSpeed, maxSpaceships, orbitSpeed, owner);
     }
 
 }

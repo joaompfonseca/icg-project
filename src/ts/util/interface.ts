@@ -16,6 +16,7 @@ interface PlanetInterface {
     "orbitSpeed": number;
     "owner": string;
     "spaceships": number;
+    "maxSpaceships": number;
 }
 
 export {LevelInterface, BallInterface, PlanetInterface};

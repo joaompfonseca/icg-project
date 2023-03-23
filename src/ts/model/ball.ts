@@ -14,6 +14,7 @@ class Ball {
     rotationSpeed: number;
     table: CSS2DObject;
     spaceships: Spaceship[];
+    maxSpaceships: number;
     orbitSpeed: number;
     spaceshipGroup: THREE.Group;
     mainGroup: THREE.Group;
@@ -25,6 +26,7 @@ class Ball {
         radius: number,
         tilt: number,
         rotationSpeed: number,
+        maxSpaceships: number,
         orbitSpeed: number,
         owner: Owner
     ) {
@@ -33,6 +35,7 @@ class Ball {
         this.radius = radius;
         this.tilt = tilt;
         this.rotationSpeed = rotationSpeed;
+        this.maxSpaceships = maxSpaceships;
         this.orbitSpeed = orbitSpeed;
         this.owner = owner;
 
@@ -57,7 +60,7 @@ class Ball {
         spaceshipsRow.insertCell(0).innerHTML = '<b>Spaceships</b>';
         spaceshipsRow.insertCell(1);
         this.table = new CSS2DObject(elem);
-        this.table.position.set(0, 1.2 * radius, 0);
+        this.table.position.set(0, 5 + radius, 0);
         this.updateTable();
 
         // Add nodes to main group
@@ -108,7 +111,7 @@ class Ball {
 
     updateTable = () => {
         (<HTMLTableElement>this.table.element).rows[0].cells[1].innerHTML = this.owner.toString();
-        (<HTMLTableElement>this.table.element).rows[1].cells[1].innerHTML = this.numSpaceships().toString();
+        (<HTMLTableElement>this.table.element).rows[1].cells[1].innerHTML = this.numSpaceships().toString() + '/' + this.maxSpaceships.toString();
     }
 
     animate = () => {

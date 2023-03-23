@@ -18,6 +18,7 @@ class Factory {
                     args.radius,
                     args.tilt,
                     args.rotationSpeed,
+                    args.maxSpaceships,
                     args.orbitSpeed,
                     (() => {
                         switch (args.owner) {

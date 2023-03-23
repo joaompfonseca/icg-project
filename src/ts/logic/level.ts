@@ -18,10 +18,10 @@ class Level {
         this.paths = [];
         this.pathGroup = new THREE.Group();
         this.scene.add(this.pathGroup);
-        // TODO: change location of this?
+        // Generation of spaceships TODO: change location of this?
         setInterval(() => {
             this.balls.forEach(ball => {
-                if (ball.owner !== Owner.NONE) {
+                if (ball.owner !== Owner.NONE && ball.numSpaceships() < ball.maxSpaceships) {
                     ball.addSpaceship(new Spaceship(ball.owner));
                 }
             });
