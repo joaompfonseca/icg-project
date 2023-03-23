@@ -5,7 +5,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "color": "#00ff00",
+            "color": "#D3D3D3",
             "shininess": 1
           },
           "position": {
@@ -26,7 +26,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "color": "#ff0000",
+            "color": "#D3D3D3",
             "shininess": 0.5
           },
           "position": {
@@ -47,7 +47,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "color": "#0000ff",
+            "color": "#D3D3D3",
             "shininess": 0.5
           },
           "position": {

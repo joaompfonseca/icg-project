@@ -1,9 +1,7 @@
 import * as THREE from "three";
 import {App} from "../app";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
-import {Object3D} from "three";
-import * as assert from "assert";
-import {Spaceship} from "../model/spaceship";
+import {Owner} from "./owner";
 
 function onResize(event: Event, app: App) {
     app.camera.aspect = window.innerWidth / window.innerHeight;
@@ -73,7 +71,7 @@ function onMouseClick(event: MouseEvent, app: App) {
             // Send one spaceship from fromBall to targetBall
             app.level.sendSpaceship(fromBall, targetBall);
         }
-        else {
+        else if (targetBall.owner === Owner.HUMAN) {
             app.level.setSelected(targetBall);
             outline.selectedObjects = [targetMesh];
         }

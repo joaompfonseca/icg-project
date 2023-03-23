@@ -27,7 +27,7 @@ function initEmptyScene(app: App) {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
     scene.add(ambientLight);
     const spotlight = new THREE.SpotLight(0xffffff);
-    spotlight.position.set(0, 200, 200);
+    spotlight.position.set(100, 300, 100);
     spotlight.castShadow = true;
     scene.add(spotlight);
 
