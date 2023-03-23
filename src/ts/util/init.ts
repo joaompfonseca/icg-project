@@ -9,7 +9,10 @@ import {Level} from "../logic/level";
 import {onMouseClick, onMouseMove, onResize} from "../logic/event";
 import {Spaceship} from "../model/spaceship";
 import {CSS2DRenderer} from "three/examples/jsm/renderers/CSS2DRenderer";
-import {Player} from "../logic/player";
+import {Owner} from "../logic/owner";
+import levels from './../../json/levels.json';
+import {Factory} from "./factory";
+import {LevelInterface} from "./interface";
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -17,14 +20,14 @@ function initEmptyScene(app: App) {
 
     // CAMERA
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(50, 50, 50);
+    camera.position.set(75, 75, 75);
     camera.lookAt(0, 0, 0);
 
     // ILLUMINATION TODO
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
     scene.add(ambientLight);
     const spotlight = new THREE.SpotLight(0xffffff);
-    spotlight.position.set(0, 100, 100);
+    spotlight.position.set(0, 200, 200);
     spotlight.castShadow = true;
     scene.add(spotlight);
 
@@ -68,29 +71,23 @@ function initEvents(app: App) {
 }
 
 function initLevel(app: App, num: number) {
-    // TODO: Use number to load the correct level
+    const levelData: LevelInterface = levels[num];
+
     let level = new Level(app.scene);
 
-    // Planet TODO
-    let planet1 = new Planet(new THREE.MeshPhongMaterial({color: 0xff0000, shininess: 1}),
-        new THREE.Vector3(-30, 30, 0), 10, 0, 0.01, 0.025, Player.HUMAN);
-    level.addBall(planet1);
-    let planet2 = new Planet(new THREE.MeshPhongMaterial({color: 0x00ff00, shininess: 0.5}),
-        new THREE.Vector3(30, 40, -10), 7.5, Math.PI / 16, 0.05, 0.025, Player.ENEMY);
-    level.addBall(planet2);
-
-    // Spaceship TODO
-    for (let i = 0; i < 10; i++) {
-        let spaceship = new Spaceship(Player.HUMAN);
-        planet1.addSpaceship(spaceship);
+    // Balls
+    for (let ballData of levelData.balls) {
+        let ball = Factory.createBall(ballData);
+        if (ball) {
+            level.addBall(ball);
+        }
     }
-    let spaceship2 = new Spaceship(Player.ENEMY);
-    planet2.addSpaceship(spaceship2);
 
     // Ground plane
     let planeGeometry = new THREE.PlaneGeometry(1000, 1000);
     let planeMaterial = new THREE.MeshPhongMaterial({color: 0xcccccc});
     let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.position.set(0, -100, 0);
     plane.rotation.x = -0.5 * Math.PI;
     plane.receiveShadow = true;
     app.scene.add(plane);

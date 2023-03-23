@@ -1,0 +1,66 @@
+[
+  {
+    "balls": [
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "color": "#00ff00",
+            "shininess": 1
+          },
+          "position": {
+            "x": -50,
+            "y": 20,
+            "z": 20
+          },
+          "radius": 10,
+          "tilt": 0,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.025,
+          "owner": "Human",
+          "spaceships": 10
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "color": "#ff0000",
+            "shininess": 0.5
+          },
+          "position": {
+            "x": -20,
+            "y": 40,
+            "z": -50
+          },
+          "radius": 7.5,
+          "tilt": 0.19634954084936207,
+          "rotationSpeed": 0.05,
+          "orbitSpeed": 0.025,
+          "owner": "Enemy",
+          "spaceships": 5
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "color": "#0000ff",
+            "shininess": 0.5
+          },
+          "position": {
+            "x": 30,
+            "y": 15,
+            "z": -20
+          },
+          "radius": 15,
+          "tilt": 0.39269908169872414,
+          "rotationSpeed": 0.02,
+          "orbitSpeed": 0.025,
+          "owner": "None",
+          "spaceships": 0
+        }
+      }
+    ]
+  }
+]

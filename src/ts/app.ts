@@ -20,7 +20,7 @@ class App {
     constructor() {
         initEmptyScene(this);
         initEvents(this);
-        initLevel(this, 1);
+        initLevel(this, 0);
     }
 
     run = () => {

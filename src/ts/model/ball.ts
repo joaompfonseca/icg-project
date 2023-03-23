@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {MeshPhongMaterial} from "three";
 import {Spaceship} from "./spaceship";
 import {CSS2DObject} from "three/examples/jsm/renderers/CSS2DRenderer";
-import {Player} from "../logic/player";
+import {Owner} from "../logic/owner";
 
 class Ball {
     geometry: THREE.SphereGeometry;
@@ -17,7 +17,7 @@ class Ball {
     orbitSpeed: number;
     spaceshipGroup: THREE.Group;
     mainGroup: THREE.Group;
-    owner: Player;
+    owner: Owner;
 
     constructor(
         material: MeshPhongMaterial,
@@ -26,7 +26,7 @@ class Ball {
         tilt: number,
         rotationSpeed: number,
         orbitSpeed: number,
-        owner: Player
+        owner: Owner
     ) {
         this.material = material;
         this.position = position;

@@ -1,15 +1,15 @@
 import * as THREE from 'three';
-import {Player} from "../logic/player";
+import {Owner} from "../logic/owner";
 
 class Spaceship {
 
-    owner: Player;
+    owner: Owner;
     geometry: THREE.ConeGeometry;
     material: THREE.MeshPhongMaterial;
     mesh: THREE.Mesh;
     speed: number;
 
-    constructor(owner: Player) {
+    constructor(owner: Owner) {
         this.owner = owner;
 
         this.geometry = new THREE.ConeGeometry(0.5, 2, 4);
@@ -18,7 +18,6 @@ class Spaceship {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.mesh.castShadow = true;
         this.mesh.receiveShadow = true;
-        // TODO: currently only using mesh, might need to change that to support enemies
         this.speed = 0.25;
     }
 
