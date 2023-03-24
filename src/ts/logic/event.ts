@@ -3,13 +3,13 @@ import {App} from "../app";
 import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
 import {Owner} from "./owner";
 
-function onResize(event: Event, app: App) {
+function onLevelResize(event: Event, app: App) {
     app.camera.aspect = window.innerWidth / window.innerHeight;
     app.camera.updateProjectionMatrix();
     app.composer.renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function onMouseMove(event: MouseEvent, app: App) {
+function onLevelMouseMove(event: MouseEvent, app: App) {
     // Mouse position
     const mouse = new THREE.Vector2();
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -44,7 +44,7 @@ function onMouseMove(event: MouseEvent, app: App) {
     }
 }
 
-function onMouseClick(event: MouseEvent, app: App) {
+function onLevelMouseClick(event: MouseEvent, app: App) {
     // Mouse position
     const mouse = new THREE.Vector2();
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -78,4 +78,4 @@ function onMouseClick(event: MouseEvent, app: App) {
     }
 }
 
-export {onResize, onMouseMove, onMouseClick};
+export {onLevelResize, onLevelMouseMove, onLevelMouseClick};

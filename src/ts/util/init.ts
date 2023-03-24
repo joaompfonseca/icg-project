@@ -1,18 +1,15 @@
 import * as THREE from 'three';
-import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
-import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
-import {RenderPass} from "three/examples/jsm/postprocessing/RenderPass";
-import {App} from "../app";
-import {Planet} from "../model/planet";
-import {Level} from "../logic/level";
-import {onMouseClick, onMouseMove, onResize} from "../logic/event";
-import {Spaceship} from "../model/spaceship";
-import {CSS2DRenderer} from "three/examples/jsm/renderers/CSS2DRenderer";
-import {Owner} from "../logic/owner";
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
+import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer';
+import {OutlinePass} from 'three/examples/jsm/postprocessing/OutlinePass';
+import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass';
+import {App} from '../app';
+import {Level} from '../logic/level';
+import {onLevelMouseClick, onLevelMouseMove, onLevelResize} from '../logic/event';
+import {CSS2DRenderer} from 'three/examples/jsm/renderers/CSS2DRenderer';
 import levels from './../../json/levels.json';
-import {Factory} from "./factory";
-import {LevelInterface} from "./interface";
+import {Factory} from './factory';
+import {LevelInterface} from './interface';
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -65,38 +62,53 @@ function initEmptyScene(app: App) {
 }
 
 function initEvents(app: App) {
-    window.addEventListener('resize', (event: Event) => onResize(event, app), false);
-    window.addEventListener('mousemove', (event: MouseEvent) => onMouseMove(event, app), false);
-    window.addEventListener('click', (event: MouseEvent) => onMouseClick(event, app), false);
+    // Menu Events
+    document.querySelector('#level-0')!.addEventListener('click', () => initLevel(app, 0), false);
+    // Level Events
+    window.addEventListener('resize', (event: Event) => onLevelResize(event, app), false);
+    window.addEventListener('mousemove', (event: MouseEvent) => onLevelMouseMove(event, app), false);
+    window.addEventListener('click', (event: MouseEvent) => onLevelMouseClick(event, app), false);
+}
+
+function initMenu(app: App) {
+    const level = new Level(); //TODO: can create a pretty bg
+
+    app.setLevel(level);
+
+    (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'block';
+    (<HTMLDivElement>document.querySelector('#output')!).style.display = 'none';
 }
 
 function initLevel(app: App, num: number) {
     const levelData: LevelInterface = levels[num];
 
-    let level = new Level(app.scene);
+    const level = new Level();
 
     // Balls
     for (let ballData of levelData.balls) {
-        let ball = Factory.createBall(ballData);
+        const ball = Factory.createBall(ballData);
         if (ball) {
             level.addBall(ball);
         }
     }
 
     // Ground plane
-    let planeGeometry = new THREE.PlaneGeometry(1000, 1000);
-    let planeMaterial = new THREE.MeshPhongMaterial({color: 0xcccccc});
-    let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    const planeGeometry = new THREE.PlaneGeometry(1000, 1000);
+    const planeMaterial = new THREE.MeshPhongMaterial({color: 0xcccccc});
+    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.position.set(0, -100, 0);
     plane.rotation.x = -0.5 * Math.PI;
     plane.receiveShadow = true;
-    app.scene.add(plane);
+    level.mainGroup.add(plane);
 
     // Coordinate axes
     let axes = new THREE.AxesHelper(100);
-    app.scene.add(axes);
+    level.mainGroup.add(axes);
 
-    app.level = level;
+    app.setLevel(level);
+
+    (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'none';
+    (<HTMLDivElement>document.querySelector('#output')!).style.display = 'block';
 }
 
-export {initEmptyScene, initEvents, initLevel};
+export {initEmptyScene, initEvents, initMenu, initLevel};

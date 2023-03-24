@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {initEmptyScene, initEvents, initLevel} from "./util/init";
-import {render, resize} from "./frame/render";
+import {initEmptyScene, initLevel, initEvents, initMenu} from "./util/init";
+import {render} from "./frame/render";
 import {animate} from "./frame/animate";
 import {Level} from "./logic/level";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
@@ -18,13 +18,19 @@ class App {
     level: Level;
 
     constructor() {
+        this.level = new Level();
         initEmptyScene(this);
         initEvents(this);
-        initLevel(this, 0);
+        initMenu(this);
+    }
+
+    setLevel = (level: Level) => {
+        this.scene.remove(this.level.mainGroup);
+        this.level = level
+        this.scene.add(level.mainGroup);
     }
 
     run = () => {
-        // TODO: do someting else here?
         this.nextFrame();
     }
 

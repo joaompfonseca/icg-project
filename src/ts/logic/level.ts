@@ -5,19 +5,20 @@ import {Owner} from "./owner";
 import {Spaceship} from "../model/spaceship";
 
 class Level {
-    scene: THREE.Scene;
     balls: Ball[];
     selected: Ball | null;
     paths: Path[];
     pathGroup: THREE.Group;
+    mainGroup: THREE.Group;
 
-    constructor(scene: THREE.Scene) {
-        this.scene = scene;
+    constructor() {
         this.balls = [];
         this.selected = null;
+
+        // Paths
         this.paths = [];
         this.pathGroup = new THREE.Group();
-        this.scene.add(this.pathGroup);
+
         // Generation of spaceships TODO: change location of this?
         setInterval(() => {
             this.balls.forEach(ball => {
@@ -26,11 +27,15 @@ class Level {
                 }
             });
         }, 1000);
+
+        // Add nodes to main group
+        this.mainGroup = new THREE.Group();
+        this.mainGroup.add(this.pathGroup);
     }
 
     addBall = (ball: Ball) => {
         this.balls.push(ball);
-        this.scene.add(ball.mainGroup);
+        this.mainGroup.add(ball.mainGroup);
     }
 
     findBall = (mesh: THREE.Mesh) => {
