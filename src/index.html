@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<div id="menu" style="text-align: center">
+<div id="menu" style="display: none; text-align: center">
     <h1>Welcome to Solarmax 3D</h1>
     <h2>Select a level:</h2>
     <table style="margin: auto">
@@ -27,7 +27,13 @@
         </tbody>
     </table>
 </div>
-<div id="output"></div>
+
+<div id="output" style="display: none">
+    <div style="position: absolute; z-index: 1">
+        <button id="btn-menu">Menu</button>
+        <button id="btn-pause">Pause</button>
+    </div>
+</div>
 <script src="bundle.js" defer></script>
 </body>
 

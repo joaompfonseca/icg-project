@@ -8,12 +8,14 @@ class Level {
     balls: Ball[];
     selected: Ball | null;
     paths: Path[];
+    paused: boolean;
     pathGroup: THREE.Group;
     mainGroup: THREE.Group;
 
     constructor() {
         this.balls = [];
         this.selected = null;
+        this.paused = false;
 
         // Paths
         this.paths = [];
@@ -22,7 +24,7 @@ class Level {
         // Generation of spaceships TODO: change location of this?
         setInterval(() => {
             this.balls.forEach(ball => {
-                if (ball.owner !== Owner.NONE && ball.numSpaceships() < ball.maxSpaceships) {
+                if (ball.owner !== Owner.NONE && ball.numSpaceships() < ball.maxSpaceships && !this.paused) {
                     ball.addSpaceship(new Spaceship(ball.owner));
                 }
             });
@@ -58,6 +60,10 @@ class Level {
             this.paths.push(path);
             this.pathGroup.add(spaceship.mesh);
         }
+    }
+
+    togglePause = () => {
+        this.paused = !this.paused;
     }
 
     animate = () => {

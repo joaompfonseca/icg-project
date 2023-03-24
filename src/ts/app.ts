@@ -30,11 +30,19 @@ class App {
         this.scene.add(level.mainGroup);
     }
 
+    togglePause = () => {
+        this.level.togglePause();
+        this.nextFrame();
+    }
+
     run = () => {
         this.nextFrame();
     }
 
     nextFrame = () => {
+        if (this.level.paused) {
+            return;
+        }
         animate(this);
         render(this);
         this.control.update();

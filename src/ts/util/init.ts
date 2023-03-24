@@ -64,13 +64,23 @@ function initEmptyScene(app: App) {
 function initEvents(app: App) {
     // Menu Events
     document.querySelector('#level-0')!.addEventListener('click', () => initLevel(app, 0), false);
+
     // Level Events
     window.addEventListener('resize', (event: Event) => onLevelResize(event, app), false);
     window.addEventListener('mousemove', (event: MouseEvent) => onLevelMouseMove(event, app), false);
     window.addEventListener('click', (event: MouseEvent) => onLevelMouseClick(event, app), false);
+
+    document.querySelector('#btn-menu')!.addEventListener('click', () => initMenu(app), false);
+    document.querySelector('#btn-pause')!.addEventListener('click', () => app.togglePause(), false);
+
 }
 
 function initMenu(app: App) {
+    // Delete all ball tables TODO: move this somewhere else, but it is needed if we go back and forth between menu and level
+    app.level.balls.forEach(ball => {
+        ball.mainGroup.remove(ball.table);
+    })
+
     const level = new Level(); //TODO: can create a pretty bg
 
     app.setLevel(level);
