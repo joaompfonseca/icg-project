@@ -115,6 +115,10 @@ function initLevel(app: App, num: number) {
     let axes = new THREE.AxesHelper(100);
     level.mainGroup.add(axes);
 
+    // Set camera position
+    app.camera.position.set(75, 75, 75);
+    app.camera.lookAt(0, 0, 0);
+
     app.setLevel(level);
 
     (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'none';
