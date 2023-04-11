@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {initEmptyScene, initLevel, initEvents, initMenu} from "./util/init";
+import {initEmptyScene, initEvents, initMenu} from "./util/init";
 import {render} from "./frame/render";
 import {animate} from "./frame/animate";
 import {Level} from "./logic/level";
@@ -26,6 +26,10 @@ class App {
 
     setLevel = (level: Level) => {
         this.scene.remove(this.level.mainGroup);
+        level.dispatcher.addEventListener('end', (event: THREE.Event) => {
+            alert(`Game over! Winner: ${event.winner}`);
+            initMenu(this);
+        });
         this.level = level
         this.scene.add(level.mainGroup);
     }

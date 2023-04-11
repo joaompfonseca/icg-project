@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import {Ball} from '../model/ball';
 import {Path} from './path';
-import {Owner} from "./owner";
-import {Spaceship} from "../model/spaceship";
+import {Owner} from './owner';
+import {Spaceship} from '../model/spaceship';
 
 class Level {
+    dispatcher: THREE.EventDispatcher;
     balls: Ball[];
     selected: Ball | null;
     paths: Path[];
@@ -13,6 +14,7 @@ class Level {
     mainGroup: THREE.Group;
 
     constructor() {
+        this.dispatcher = new THREE.EventDispatcher();
         this.balls = [];
         this.selected = null;
         this.paused = false;
@@ -36,6 +38,9 @@ class Level {
     }
 
     addBall = (ball: Ball) => {
+        ball.dispatcher.addEventListener('colonize', () => {
+            this.isEndLevel();
+        });
         this.balls.push(ball);
         this.mainGroup.add(ball.mainGroup);
     }
@@ -51,6 +56,16 @@ class Level {
 
     isBallSelected = () => {
         return this.selected !== null;
+    }
+
+    isEndLevel = () => {
+        const ballsOwners = new Set(this.balls.map(ball => ball.owner));
+        // No unique owner of all balls or unique owner is NONE
+        if (ballsOwners.size !== 1 || ballsOwners.has(Owner.NONE)) {
+            return;
+        }
+        // End of level
+        this.dispatcher.dispatchEvent({type: 'end', winner: ballsOwners.has(Owner.HUMAN) ? Owner.HUMAN : Owner.ENEMY});
     }
 
     sendSpaceship = (fromBall: Ball, targetBall: Ball) => {

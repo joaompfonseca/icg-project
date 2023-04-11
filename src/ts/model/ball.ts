@@ -5,6 +5,7 @@ import {CSS2DObject} from "three/examples/jsm/renderers/CSS2DRenderer";
 import {Owner} from "../logic/owner";
 
 class Ball {
+    dispatcher: THREE.EventDispatcher;
     geometry: THREE.SphereGeometry;
     material: THREE.MeshPhongMaterial;
     mesh: THREE.Mesh;
@@ -30,6 +31,7 @@ class Ball {
         orbitSpeed: number,
         owner: Owner
     ) {
+        this.dispatcher = new THREE.EventDispatcher();
         this.material = material;
         this.position = position;
         this.radius = radius;
@@ -82,6 +84,7 @@ class Ball {
             // Start colonization TODO: timer
             else {
                 this.owner = spaceship.owner;
+                this.dispatcher.dispatchEvent({type: 'colonize', owner: this.owner});
             }
         }
         // Assign random position on orbit
