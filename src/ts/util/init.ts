@@ -23,7 +23,7 @@ function initEmptyScene(app: App) {
     const scene = new THREE.Scene();
 
     // CAMERA
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
     camera.position.set(75, 75, 75);
     camera.lookAt(0, 0, 0);
 
@@ -59,6 +59,8 @@ function initEmptyScene(app: App) {
 
     // CONTROLS
     const control = new OrbitControls(camera, labelRenderer.domElement);
+    control.maxDistance = 500;
+    control.enablePan = false;
 
     app.scene = scene;
     app.camera = camera;
@@ -110,7 +112,7 @@ function initLevel(app: App, num: number) {
     }
 
     // Skybox
-    const skyboxGeometry = new THREE.BoxGeometry(1000, 1000, 1000);
+    const skyboxGeometry = new THREE.BoxGeometry(10000, 10000, 10000);
     const skybox = new THREE.Mesh(skyboxGeometry,[
         new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbRight), side: THREE.BackSide}),
         new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbLeft), side: THREE.BackSide}),
