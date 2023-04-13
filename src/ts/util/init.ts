@@ -73,6 +73,15 @@ function initEmptyScene(app: App) {
 function initEvents(app: App) {
     // Menu Events
     document.querySelector('#level-0')!.addEventListener('click', () => initLevel(app, 0), false);
+    document.querySelector('#level-1')!.addEventListener('click', () => initLevel(app, 1), false);
+    document.querySelector('#level-2')!.addEventListener('click', () => initLevel(app, 2), false);
+    document.querySelector('#level-3')!.addEventListener('click', () => initLevel(app, 3), false);
+    document.querySelector('#level-4')!.addEventListener('click', () => initLevel(app, 4), false);
+    document.querySelector('#level-5')!.addEventListener('click', () => initLevel(app, 5), false);
+    document.querySelector('#level-6')!.addEventListener('click', () => initLevel(app, 6), false);
+    document.querySelector('#level-7')!.addEventListener('click', () => initLevel(app, 7), false);
+    document.querySelector('#level-8')!.addEventListener('click', () => initLevel(app, 8), false);
+    document.querySelector('#level-9')!.addEventListener('click', () => initLevel(app, 9), false);
 
     // Level Events
     window.addEventListener('resize', (event: Event) => onLevelResize(event, app), false);
