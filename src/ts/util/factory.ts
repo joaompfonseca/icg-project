@@ -4,6 +4,10 @@ import {BallInterface} from './interface';
 import {Planet} from '../model/planet';
 import {Owner} from '../logic/owner';
 import {Spaceship} from '../model/spaceship';
+// Images
+import earthMap from '../../jpg/balls/earth.jpg';
+import moonMap from '../../jpg/balls/moon.jpg';
+import defaultMap from '../../jpg/balls/default.jpg';
 
 class Factory {
     static createBall = (ballData: BallInterface): Ball | null => {
@@ -13,7 +17,20 @@ class Factory {
             case 'Planet':
                 // Create the planet
                 res = new Planet(
-                    new THREE.MeshPhongMaterial({"color": parseInt(args.material.color.replace(/^#/, ''), 16), "shininess": args.material.shininess}),
+                    new THREE.MeshPhongMaterial({
+                        map: new THREE.TextureLoader().load((() => {
+                                switch (args.material.map) {
+                                    case 'earth':
+                                        return earthMap;
+                                    case 'moon':
+                                        return moonMap;
+                                    default:
+                                        return defaultMap;
+                                }
+                            }
+                        )()),
+                        shininess: args.material.shininess
+                    }),
                     new THREE.Vector3(args.position.x, args.position.y, args.position.z),
                     args.radius,
                     args.tilt,

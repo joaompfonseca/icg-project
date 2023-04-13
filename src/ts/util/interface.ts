@@ -8,7 +8,7 @@ interface BallInterface {
 }
 
 interface PlanetInterface {
-    "material": { "color": string, "shininess": number };
+    "material": { "map": string, "shininess": number };
     "position": { "x": number, "y": number, "z": number };
     "radius": number;
     "tilt": number;

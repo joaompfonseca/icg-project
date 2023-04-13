@@ -42,7 +42,7 @@ class Ball {
         this.owner = owner;
 
         // Mesh
-        this.geometry = new THREE.SphereGeometry(radius, 2 * radius, 2 * radius);
+        this.geometry = new THREE.SphereGeometry(radius, (1/(0.1 * radius)+2)*radius, (1/(0.1 * radius)+2)*radius);
         this.mesh = new THREE.Mesh(this.geometry, material);
         this.mesh.rotateZ(tilt);
         this.mesh.castShadow = true;
@@ -55,6 +55,7 @@ class Ball {
 
         // Info table
         const elem = document.createElement('table');
+        elem.style.color = 'white';
         const ownerRow = elem.insertRow(0);
         ownerRow.insertCell(0).innerHTML = '<b>Owner</b>';
         ownerRow.insertCell(1);

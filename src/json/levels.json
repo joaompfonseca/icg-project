@@ -5,7 +5,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "color": "#D3D3D3",
+            "map": "earth",
             "shininess": 1
           },
           "position": {
@@ -26,7 +26,53 @@
         "class": "Planet",
         "args": {
           "material": {
-            "color": "#D3D3D3",
+            "map": "moon",
+            "shininess": 1
+          },
+          "position": {
+            "x": 10,
+            "y": 20,
+            "z": -20
+          },
+          "radius": 3,
+          "tilt": 0,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.025,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 10
+        }
+      }
+    ]
+  },
+  {
+    "balls": [
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "earth",
+            "shininess": 1
+          },
+          "position": {
+            "x": -50,
+            "y": 20,
+            "z": 20
+          },
+          "radius": 10,
+          "tilt": 0,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.025,
+          "owner": "Human",
+          "spaceships": 10,
+          "maxSpaceships": 50
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "earth",
             "shininess": 0.5
           },
           "position": {
@@ -47,7 +93,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "color": "#D3D3D3",
+            "map": "earth",
             "shininess": 0.5
           },
           "position": {

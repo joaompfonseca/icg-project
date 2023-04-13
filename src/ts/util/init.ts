@@ -10,6 +10,13 @@ import {CSS2DRenderer} from 'three/examples/jsm/renderers/CSS2DRenderer';
 import levels from './../../json/levels.json';
 import {Factory} from './factory';
 import {LevelInterface} from './interface';
+// Images
+import sbBack from '../../jpg/skybox/back.jpg';
+import sbBottom from '../../jpg/skybox/bottom.jpg';
+import sbFront from '../../jpg/skybox/front.jpg';
+import sbLeft from '../../jpg/skybox/left.jpg';
+import sbRight from '../../jpg/skybox/right.jpg';
+import sbTop from '../../jpg/skybox/top.jpg';
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -102,14 +109,17 @@ function initLevel(app: App, num: number) {
         }
     }
 
-    // Ground plane
-    const planeGeometry = new THREE.PlaneGeometry(1000, 1000);
-    const planeMaterial = new THREE.MeshPhongMaterial({color: 0xcccccc});
-    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-    plane.position.set(0, -100, 0);
-    plane.rotation.x = -0.5 * Math.PI;
-    plane.receiveShadow = true;
-    level.mainGroup.add(plane);
+    // Skybox
+    const skyboxGeometry = new THREE.BoxGeometry(1000, 1000, 1000);
+    const skybox = new THREE.Mesh(skyboxGeometry,[
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbRight), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbLeft), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbTop), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbBottom), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbFront), side: THREE.BackSide}),
+        new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbBack), side: THREE.BackSide}),
+    ]);
+    level.mainGroup.add(skybox);
 
     // Coordinate axes
     let axes = new THREE.AxesHelper(100);
