@@ -77,6 +77,14 @@ class Level {
         }
     }
 
+    sendHalfSpaceships = async (fromBall: Ball, targetBall: Ball) => {
+        const half = Math.floor(fromBall.numSpaceships() / 2);
+        for (let i = 0; i < half; i++) {
+            this.sendSpaceship(fromBall, targetBall);
+            await new Promise(resolve => setTimeout(resolve, 50)); // TODO: maybe change this
+        }
+    }
+
     togglePause = () => {
         this.paused = !this.paused;
     }

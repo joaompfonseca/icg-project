@@ -68,8 +68,8 @@ function onLevelMouseClick(event: MouseEvent, app: App) {
         const targetBall = app.level.findBall(targetMesh)!;
         if (app.level.isBallSelected() && app.level.selected !== targetBall) {
             const fromBall = app.level.selected!;
-            // Send one spaceship from fromBall to targetBall
-            app.level.sendSpaceship(fromBall, targetBall);
+            // Send half of the spaceships from fromBall to targetBall
+            app.level.sendHalfSpaceships(fromBall, targetBall);
         }
         else if (targetBall.owner === Owner.HUMAN) {
             app.level.setSelected(targetBall);
