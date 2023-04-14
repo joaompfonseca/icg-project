@@ -6,6 +6,7 @@ import {Owner} from '../logic/owner';
 import {Spaceship} from '../model/spaceship';
 // Images
 import earthMap from '../../jpg/balls/earth.jpg';
+import marsMap from '../../jpg/balls/mars.jpg';
 import moonMap from '../../jpg/balls/moon.jpg';
 import defaultMap from '../../jpg/balls/default.jpg';
 
@@ -22,8 +23,11 @@ class Factory {
                                 switch (args.material.map) {
                                     case 'earth':
                                         return earthMap;
+                                    case 'mars':
+                                        return marsMap;
                                     case 'moon':
                                         return moonMap;
+                                    case 'default':
                                     default:
                                         return defaultMap;
                                 }
@@ -33,7 +37,7 @@ class Factory {
                     }),
                     new THREE.Vector3(args.position.x, args.position.y, args.position.z),
                     args.radius,
-                    args.tilt,
+                    THREE.MathUtils.degToRad(args.tilt),
                     args.rotationSpeed,
                     args.maxSpaceships,
                     args.orbitSpeed,

@@ -63,7 +63,7 @@ class Ball {
         spaceshipsRow.insertCell(0).innerHTML = '<b>Spaceships</b>';
         spaceshipsRow.insertCell(1);
         this.table = new CSS2DObject(elem);
-        this.table.position.set(0, 5 + radius, 0);
+        this.table.position.set(0, (1/(0.1 * radius)+1.5)*radius, 0);
         this.updateTable();
 
         // Add nodes to main group

@@ -9,17 +9,17 @@
             "shininess": 1
           },
           "position": {
-            "x": -50,
-            "y": 20,
-            "z": 20
+            "x": -150,
+            "y": 0,
+            "z": 0
           },
-          "radius": 10,
-          "tilt": 0,
+          "radius": 30,
+          "tilt": 23.4,
           "rotationSpeed": 0.01,
-          "orbitSpeed": 0.025,
+          "orbitSpeed": 0.02,
           "owner": "Human",
-          "spaceships": 10,
-          "maxSpaceships": 50
+          "spaceships": 50,
+          "maxSpaceships": 100
         }
       },
       {
@@ -30,17 +30,17 @@
             "shininess": 1
           },
           "position": {
-            "x": 10,
+            "x": 50,
             "y": 20,
             "z": -20
           },
-          "radius": 3,
-          "tilt": 0,
+          "radius": 10,
+          "tilt": 6.7,
           "rotationSpeed": 0.01,
-          "orbitSpeed": 0.025,
+          "orbitSpeed": 0.03,
           "owner": "None",
           "spaceships": 0,
-          "maxSpaceships": 10
+          "maxSpaceships": 40
         }
       }
     ]
@@ -55,37 +55,79 @@
             "shininess": 1
           },
           "position": {
-            "x": -50,
-            "y": 20,
-            "z": 20
+            "x": -100,
+            "y": 0,
+            "z": 100
           },
-          "radius": 10,
-          "tilt": 0,
+          "radius": 30,
+          "tilt": 23.4,
           "rotationSpeed": 0.01,
-          "orbitSpeed": 0.025,
+          "orbitSpeed": 0.02,
           "owner": "Human",
-          "spaceships": 10,
-          "maxSpaceships": 50
+          "spaceships": 100,
+          "maxSpaceships": 100
         }
       },
       {
         "class": "Planet",
         "args": {
           "material": {
-            "map": "earth",
-            "shininess": 0.5
+            "map": "moon",
+            "shininess": 1
           },
           "position": {
-            "x": -20,
-            "y": 40,
+            "x": -150,
+            "y": 20,
+            "z": -50
+          },
+          "radius": 10,
+          "tilt": 6.7,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.03,
+          "owner": "Human",
+          "spaceships": 40,
+          "maxSpaceships": 40
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "mars",
+            "shininess": 1
+          },
+          "position": {
+            "x": 50,
+            "y": 0,
+            "z": -200
+          },
+          "radius": 20,
+          "tilt": 25,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.02,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 60
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 125,
+            "y": 0,
             "z": -50
           },
           "radius": 7.5,
-          "tilt": 0.19634954084936207,
-          "rotationSpeed": 0.05,
-          "orbitSpeed": 0.025,
-          "owner": "Enemy",
-          "spaceships": 5,
+          "tilt": 10,
+          "rotationSpeed": -0.01,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
           "maxSpaceships": 30
         }
       },
@@ -93,21 +135,369 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "earth",
-            "shininess": 0.5
+            "map": "default",
+            "shininess": 1
           },
           "position": {
-            "x": 30,
-            "y": 15,
-            "z": -20
+            "x": -25,
+            "y": 25,
+            "z": -150
           },
-          "radius": 15,
-          "tilt": 0.39269908169872414,
-          "rotationSpeed": 0.02,
-          "orbitSpeed": 0.025,
+          "radius": 7.5,
+          "tilt": 5,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.03,
           "owner": "None",
           "spaceships": 0,
-          "maxSpaceships": 75
+          "maxSpaceships": 30
+        }
+      }
+    ]
+  },
+  {
+    "balls": [
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "mars",
+            "shininess": 1
+          },
+          "position": {
+            "x": -100,
+            "y": 0,
+            "z": -50
+          },
+          "radius": 20,
+          "tilt": 25,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.02,
+          "owner": "Human",
+          "spaceships": 60,
+          "maxSpaceships": 60
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 100
+          },
+          "radius": 7.5,
+          "tilt": 10,
+          "rotationSpeed": -0.01,
+          "orbitSpeed": 0.03,
+          "owner": "Enemy",
+          "spaceships": 30,
+          "maxSpaceships": 30
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 100,
+            "y": 25,
+            "z": -50
+          },
+          "radius": 7.5,
+          "tilt": 5,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.03,
+          "owner": "Enemy",
+          "spaceships": 30,
+          "maxSpaceships": 30
+        }
+      }
+    ]
+  },
+  {
+    "balls": [
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "earth",
+            "shininess": 1
+          },
+          "position": {
+            "x": -100,
+            "y": 0,
+            "z": 100
+          },
+          "radius": 30,
+          "tilt": 23.4,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.02,
+          "owner": "Human",
+          "spaceships": 50,
+          "maxSpaceships": 100
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "moon",
+            "shininess": 1
+          },
+          "position": {
+            "x": -150,
+            "y": 20,
+            "z": -50
+          },
+          "radius": 10,
+          "tilt": 6.7,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 40
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "mars",
+            "shininess": 1
+          },
+          "position": {
+            "x": 50,
+            "y": 0,
+            "z": -200
+          },
+          "radius": 20,
+          "tilt": 25,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.02,
+          "owner": "Enemy",
+          "spaceships": 30,
+          "maxSpaceships": 60
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 125,
+            "y": 0,
+            "z": -50
+          },
+          "radius": 7.5,
+          "tilt": 10,
+          "rotationSpeed": -0.01,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 30
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": -25,
+            "y": 25,
+            "z": -150
+          },
+          "radius": 7.5,
+          "tilt": 5,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 30
+        }
+      }
+    ]
+  },
+  {
+    "balls": [
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "mars",
+            "shininess": 1
+          },
+          "position": {
+            "x": -50,
+            "y": 0,
+            "z": 150
+          },
+          "radius": 20,
+          "tilt": 25,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.02,
+          "owner": "Human",
+          "spaceships": 40,
+          "maxSpaceships": 60
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": -100,
+            "y": 40,
+            "z": 50
+          },
+          "radius": 7.5,
+          "tilt": 8,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 30
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 50,
+            "y": -20,
+            "z": 100
+          },
+          "radius": 7.5,
+          "tilt": 10,
+          "rotationSpeed": -0.01,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 30
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": -100,
+            "y": 10,
+            "z": -100
+          },
+          "radius": 7.5,
+          "tilt": 25,
+          "rotationSpeed": 0.02,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 30
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 10
+          },
+          "radius": 10,
+          "tilt": 15,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 35
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 100,
+            "y": 10,
+            "z": -10
+          },
+          "radius": 10,
+          "tilt": 10,
+          "rotationSpeed": -0.01,
+          "orbitSpeed": 0.03,
+          "owner": "None",
+          "spaceships": 0,
+          "maxSpaceships": 40
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 50,
+            "y": 30,
+            "z": -100
+          },
+          "radius": 10,
+          "tilt": 5,
+          "rotationSpeed": 0.01,
+          "orbitSpeed": 0.03,
+          "owner": "Enemy",
+          "spaceships": 15,
+          "maxSpaceships": 35
+        }
+      },
+      {
+        "class": "Planet",
+        "args": {
+          "material": {
+            "map": "default",
+            "shininess": 1
+          },
+          "position": {
+            "x": 150,
+            "y": 10,
+            "z": -100
+          },
+          "radius": 7.5,
+          "tilt": 0,
+          "rotationSpeed": -0.01,
+          "orbitSpeed": 0.03,
+          "owner": "Enemy",
+          "spaceships": 15,
+          "maxSpaceships": 30
         }
       }
     ]

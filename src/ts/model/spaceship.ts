@@ -22,7 +22,7 @@ class Spaceship {
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.mesh.castShadow = true;
         this.mesh.receiveShadow = true;
-        this.speed = 0.25;
+        this.speed = 1;
     }
 
     setPosition = (position: THREE.Vector3) => {

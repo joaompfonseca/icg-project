@@ -72,7 +72,6 @@ function initEmptyScene(app: App) {
 
 function initEvents(app: App) {
     // Menu Events
-    document.querySelector('#level-0')!.addEventListener('click', () => initLevel(app, 0), false);
     document.querySelector('#level-1')!.addEventListener('click', () => initLevel(app, 1), false);
     document.querySelector('#level-2')!.addEventListener('click', () => initLevel(app, 2), false);
     document.querySelector('#level-3')!.addEventListener('click', () => initLevel(app, 3), false);
@@ -82,6 +81,7 @@ function initEvents(app: App) {
     document.querySelector('#level-7')!.addEventListener('click', () => initLevel(app, 7), false);
     document.querySelector('#level-8')!.addEventListener('click', () => initLevel(app, 8), false);
     document.querySelector('#level-9')!.addEventListener('click', () => initLevel(app, 9), false);
+    document.querySelector('#level-10')!.addEventListener('click', () => initLevel(app, 10), false);
 
     // Level Events
     window.addEventListener('resize', (event: Event) => onLevelResize(event, app), false);
@@ -108,7 +108,7 @@ function initMenu(app: App) {
 }
 
 function initLevel(app: App, num: number) {
-    const levelData: LevelInterface = levels[num];
+    const levelData: LevelInterface = levels[num-1];
 
     const level = new Level();
 
@@ -137,7 +137,7 @@ function initLevel(app: App, num: number) {
     level.mainGroup.add(axes);
 
     // Set camera position
-    app.camera.position.set(75, 75, 75);
+    app.camera.position.set(150, 150, 150);
     app.camera.lookAt(0, 0, 0);
 
     app.setLevel(level);
