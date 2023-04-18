@@ -23,6 +23,7 @@ class Ball {
     colonization: number;
     colonizationOwner: Owner;
     colonizationTimeout: NodeJS.Timeout | null;
+    paused: boolean;
 
     constructor(
         material: THREE.MeshPhongMaterial,
@@ -46,6 +47,7 @@ class Ball {
         this.colonization = 0;
         this.colonizationOwner = Owner.NONE;
         this.colonizationTimeout = null;
+        this.paused = false;
 
         // Mesh
         this.geometry = new THREE.SphereGeometry(radius, (1 / (0.1 * radius) + 2) * radius, (1 / (0.1 * radius) + 2) * radius);
@@ -149,29 +151,31 @@ class Ball {
         this.colonizationOwner = colonizationOwner;
 
         const increase = () => {
-            // Reset colonization if no spaceships are in ball
-            if (this.numSpaceships() === 0) {
-                this.colonization = 0;
-                this.colonizationOwner = Owner.NONE;
-                this.updateProgress(0);
-                if (this.colonizationTimeout !== null) {
-                    clearTimeout(this.colonizationTimeout);
+            if (!this.paused) {
+                // Reset colonization if no spaceships are in ball
+                if (this.numSpaceships() === 0) {
+                    this.colonization = 0;
+                    this.colonizationOwner = Owner.NONE;
+                    this.updateProgress(0);
+                    if (this.colonizationTimeout !== null) {
+                        clearTimeout(this.colonizationTimeout);
+                    }
+                    return;
                 }
-                return;
-            }
-            this.updateProgress(this.colonization + 1);
-            // Colonize if colonization is complete
-            if (this.colonization == 100) {
-                this.owner = this.colonizationOwner;
-                this.updateTable();
-                if (this.colonizationTimeout !== null) {
-                    clearTimeout(this.colonizationTimeout);
+                this.updateProgress(this.colonization + 1);
+                // Colonize if colonization is complete
+                if (this.colonization == 100) {
+                    this.owner = this.colonizationOwner;
+                    this.updateTable();
+                    if (this.colonizationTimeout !== null) {
+                        clearTimeout(this.colonizationTimeout);
+                    }
+                    this.dispatcher.dispatchEvent({
+                        type: 'colonize',
+                        owner: this.colonizationOwner
+                    });
+                    return;
                 }
-                this.dispatcher.dispatchEvent({
-                    type: 'colonize',
-                    owner: this.colonizationOwner
-                });
-                return;
             }
             this.colonizationTimeout = setTimeout(increase, 100/(0.1*this.numSpaceships()));
         }

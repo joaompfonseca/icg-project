@@ -27,11 +27,13 @@ class Level {
 
         // Generation of spaceships TODO: change location of this?
         setInterval(() => {
-            this.balls.forEach(ball => {
-                if (ball.colonization === 100 && ball.owner !== Owner.NONE && ball.numSpaceships() < ball.maxSpaceships && !this.paused) {
-                    ball.addSpaceship(new Spaceship(ball.owner));
-                }
-            });
+            if (!this.paused) {
+                this.balls.forEach(ball => {
+                    if (ball.colonization === 100 && ball.owner !== Owner.NONE && ball.numSpaceships() < ball.maxSpaceships) {
+                        ball.addSpaceship(new Spaceship(ball.owner));
+                    }
+                });
+            }
         }, 1000);
 
         // Add nodes to main group
@@ -94,6 +96,7 @@ class Level {
 
     togglePause = () => {
         this.paused = !this.paused;
+        this.balls.forEach(ball => ball.paused = this.paused);
     }
 
     animate = () => {
