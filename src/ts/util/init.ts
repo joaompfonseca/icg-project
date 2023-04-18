@@ -107,7 +107,9 @@ function initMenu(app: App) {
         ball.colonizationTimeout && clearTimeout(ball.colonizationTimeout);
     });
     app.ai?.stop();
-    app.nextFrame();
+    if (app.level.paused) {
+        app.togglePause();
+    }
 
     const level = new Level(0); //TODO: can create a pretty bg
 
@@ -126,7 +128,9 @@ function initLevel(app: App, num: number) {
         ball.colonizationTimeout && clearTimeout(ball.colonizationTimeout);
     });
     app.ai?.stop();
-    app.nextFrame();
+    if (app.level.paused) {
+        app.togglePause();
+    }
 
     // Level is not available
     if (levels.length < num) {
