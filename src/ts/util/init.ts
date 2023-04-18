@@ -87,9 +87,10 @@ function initEvents(app: App) {
     window.addEventListener('contextmenu', (event: MouseEvent) => onLevelRightMouseClick(event, app), false);
 
     // Navbar Events
-    document.querySelector('#btn-menu')!.addEventListener('click', () => initMenu(app), false);
-    document.querySelector('#btn-restart')!.addEventListener('click', () => app.restartLevel(), false);
-    document.querySelector('#btn-pause')!.addEventListener('click', () => app.togglePause(), false);
+    document.querySelector('#btn-navbar-menu')!.addEventListener('click', () => initMenu(app), false);
+    document.querySelector('#btn-navbar-restart')!.addEventListener('click', () => app.restartLevel(), false);
+    document.querySelector('#btn-navbar-pause')!.addEventListener('click', () => app.togglePause(), false);
+    document.querySelector('#btn-navbar-info')!.addEventListener('click', () => toggleInfo(), false);
 
     // End Events
     document.querySelector('#btn-end-menu')!.addEventListener('click', () => initMenu(app), false);
@@ -164,6 +165,10 @@ function initLevel(app: App, num: number) {
 function initEnd(app: App, winner: Owner) {
     (<HTMLHeadingElement>document.querySelector('#winner')!).textContent = (winner === Owner.HUMAN) ? 'You win!' : 'You lose!';
     (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'block';
+}
+
+function toggleInfo() {
+    (<HTMLDivElement>document.querySelector('#info')!).style.display = (<HTMLDivElement>document.querySelector('#info')!).style.display === 'none' ? 'block' : 'none';
 }
 
 export {initEmptyScene, initEvents, initMenu, initLevel, initEnd};
