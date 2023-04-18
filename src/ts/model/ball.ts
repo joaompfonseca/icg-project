@@ -63,10 +63,10 @@ class Ball {
         const table = document.createElement('table');
         table.style.color = 'white';
         const ownerRow = table.insertRow(0);
-        ownerRow.insertCell(0).innerHTML = '<b>Owner</b>';
+        ownerRow.insertCell(0).innerHTML = 'Owner';
         ownerRow.insertCell(1);
         const spaceshipsRow = table.insertRow(1);
-        spaceshipsRow.insertCell(0).innerHTML = '<b>Spaceships</b>';
+        spaceshipsRow.insertCell(0).innerHTML = 'Spaceships';
         spaceshipsRow.insertCell(1);
         this.table = new CSS2DObject(table);
         this.table.position.set(0, (1 / (0.1 * radius) + 1.5) * radius, 0);
