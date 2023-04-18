@@ -5,7 +5,7 @@ import {OutlinePass} from 'three/examples/jsm/postprocessing/OutlinePass';
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass';
 import {App} from '../app';
 import {Level} from '../logic/level';
-import {onLevelMouseClick, onLevelMouseMove, onLevelResize} from '../logic/event';
+import {onLevelResize, onLevelMouseMove, onLevelLeftMouseClick, onLevelRightMouseClick} from '../logic/event';
 import {CSS2DRenderer} from 'three/examples/jsm/renderers/CSS2DRenderer';
 import levels from './../../json/levels.json';
 import {Factory} from './factory';
@@ -86,7 +86,8 @@ function initEvents(app: App) {
     // Level Events
     window.addEventListener('resize', (event: Event) => onLevelResize(event, app), false);
     window.addEventListener('mousemove', (event: MouseEvent) => onLevelMouseMove(event, app), false);
-    window.addEventListener('click', (event: MouseEvent) => onLevelMouseClick(event, app), false);
+    window.addEventListener('click', (event: MouseEvent) => onLevelLeftMouseClick(event, app), false);
+    window.addEventListener('contextmenu', (event: MouseEvent) => onLevelRightMouseClick(event, app), false);
 
     document.querySelector('#btn-menu')!.addEventListener('click', () => initMenu(app), false);
     document.querySelector('#btn-pause')!.addEventListener('click', () => app.togglePause(), false);

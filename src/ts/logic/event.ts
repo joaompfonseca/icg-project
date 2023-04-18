@@ -54,7 +54,7 @@ function onLevelMouseMove(event: MouseEvent, app: App) {
     }
 }
 
-function onLevelMouseClick(event: MouseEvent, app: App) {
+function onLevelLeftMouseClick(event: MouseEvent, app: App) {
     // Mouse position
     const mouse = new THREE.Vector2();
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -86,4 +86,36 @@ function onLevelMouseClick(event: MouseEvent, app: App) {
     }
 }
 
-export {onLevelResize, onLevelMouseMove, onLevelMouseClick};
+function onLevelRightMouseClick(event: MouseEvent, app: App) {
+    // Mouse position
+    const mouse = new THREE.Vector2();
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    // Cast ray from camera to mouse
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, app.camera);
+    const intersects = raycaster.intersectObjects(app.level.balls.map(ball => ball.mesh), true)
+        .filter(intersect => intersect.object instanceof THREE.Mesh);
+
+    // Post-processing outline
+    const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
+
+    if (intersects.length === 0) {
+        app.level.setSelected(null);
+        outline.selectedObjects = [];
+    } else {
+        const targetMesh = <THREE.Mesh>intersects[0].object;
+        const targetBall = app.level.findBall(targetMesh)!;
+        if (app.level.isBallSelected() && app.level.selected !== targetBall) {
+            const fromBall = app.level.selected!;
+            // Send one of the spaceships from fromBall to targetBall
+            app.level.sendSpaceship(fromBall, targetBall);
+        } else if (targetBall.owner === Owner.HUMAN || targetBall.colonizationOwner === Owner.HUMAN) {
+            app.level.setSelected(targetBall);
+            outline.selectedObjects = [targetMesh];
+        }
+    }
+}
+
+export {onLevelResize, onLevelMouseMove, onLevelLeftMouseClick, onLevelRightMouseClick};
