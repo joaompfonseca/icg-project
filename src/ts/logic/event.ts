@@ -27,20 +27,30 @@ function onLevelMouseMove(event: MouseEvent, app: App) {
     if (intersects.length === 0) {
         if (app.level.isBallSelected()) {
             outline.selectedObjects = [app.level.selected!.mesh];
-        }
-        else {
+        } else {
             outline.selectedObjects = [];
         }
-    }
-    else {
+    } else {
         const targetMesh = <THREE.Mesh>intersects[0].object;
         const targetBall = app.level.findBall(targetMesh)!;
         if (app.level.isBallSelected() && app.level.selected !== targetBall) {
             outline.selectedObjects = [app.level.selected!.mesh, targetMesh];
-        }
-        else {
+        } else {
             outline.selectedObjects = [targetMesh]
         }
+    }
+
+    // Draw line from selected ball to mouse
+    app.scene.remove(app.line);
+    if (app.level.isBallSelected()) {
+        const selectedPosition = app.level.selected!.mainGroup.position;
+        const mousePosition = new THREE.Vector3(mouse.x, mouse.y, 0.5).unproject(app.camera);
+        const points = [selectedPosition, mousePosition];
+        app.line = new THREE.Line(
+            new THREE.BufferGeometry().setFromPoints(points),
+            new THREE.LineBasicMaterial({color: 0xffffff})
+        );
+        app.scene.add(app.line);
     }
 }
 
@@ -62,16 +72,14 @@ function onLevelMouseClick(event: MouseEvent, app: App) {
     if (intersects.length === 0) {
         app.level.setSelected(null);
         outline.selectedObjects = [];
-    }
-    else {
+    } else {
         const targetMesh = <THREE.Mesh>intersects[0].object;
         const targetBall = app.level.findBall(targetMesh)!;
         if (app.level.isBallSelected() && app.level.selected !== targetBall) {
             const fromBall = app.level.selected!;
             // Send half of the spaceships from fromBall to targetBall
             app.level.sendHalfSpaceships(fromBall, targetBall);
-        }
-        else if (targetBall.owner === Owner.HUMAN || targetBall.colonizationOwner === Owner.HUMAN) {
+        } else if (targetBall.owner === Owner.HUMAN || targetBall.colonizationOwner === Owner.HUMAN) {
             app.level.setSelected(targetBall);
             outline.selectedObjects = [targetMesh];
         }

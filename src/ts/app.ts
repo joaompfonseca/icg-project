@@ -14,6 +14,7 @@ class App {
     renderer: THREE.WebGLRenderer;
     labelRenderer: CSS2DRenderer;
     composer: EffectComposer;
+    line: THREE.Line;
     control: OrbitControls;
     level: Level;
 
