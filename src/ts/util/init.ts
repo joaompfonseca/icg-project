@@ -86,10 +86,15 @@ function initEvents(app: App) {
     window.addEventListener('click', (event: MouseEvent) => onLevelLeftMouseClick(event, app), false);
     window.addEventListener('contextmenu', (event: MouseEvent) => onLevelRightMouseClick(event, app), false);
 
+    // Navbar Events
     document.querySelector('#btn-menu')!.addEventListener('click', () => initMenu(app), false);
-    document.querySelector('#btn-pause')!.addEventListener('click', () => app.togglePause(), false);
     document.querySelector('#btn-restart')!.addEventListener('click', () => app.restartLevel(), false);
-    document.querySelector('#btn-next')!.addEventListener('click', () => app.nextLevel(), false);
+    document.querySelector('#btn-pause')!.addEventListener('click', () => app.togglePause(), false);
+
+    // End Events
+    document.querySelector('#btn-end-menu')!.addEventListener('click', () => initMenu(app), false);
+    document.querySelector('#btn-end-restart')!.addEventListener('click', () => app.restartLevel(), false);
+    document.querySelector('#btn-end-next')!.addEventListener('click', () => app.nextLevel(), false);
 }
 
 function initMenu(app: App) {
