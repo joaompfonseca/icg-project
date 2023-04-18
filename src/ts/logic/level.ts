@@ -26,7 +26,7 @@ class Level {
         // Generation of spaceships TODO: change location of this?
         setInterval(() => {
             this.balls.forEach(ball => {
-                if (ball.owner !== Owner.NONE && ball.numSpaceships() < ball.maxSpaceships && !this.paused) {
+                if (ball.colonization === 100 && ball.owner !== Owner.NONE && ball.numSpaceships() < ball.maxSpaceships && !this.paused) {
                     ball.addSpaceship(new Spaceship(ball.owner));
                 }
             });

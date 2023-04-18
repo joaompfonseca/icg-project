@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {MeshPhongMaterial} from "three";
+import {MeshPhongMaterial} from 'three';
 import {Spaceship} from "./spaceship";
 import {CSS2DObject} from "three/examples/jsm/renderers/CSS2DRenderer";
 import {Owner} from "../logic/owner";
@@ -14,12 +14,14 @@ class Ball {
     tilt: number;
     rotationSpeed: number;
     table: CSS2DObject;
+    progress: CSS2DObject;
     spaceships: Spaceship[];
     maxSpaceships: number;
     orbitSpeed: number;
     spaceshipGroup: THREE.Group;
     mainGroup: THREE.Group;
     owner: Owner;
+    colonization: number;
 
     constructor(
         material: MeshPhongMaterial,
@@ -39,10 +41,11 @@ class Ball {
         this.rotationSpeed = rotationSpeed;
         this.maxSpaceships = maxSpaceships;
         this.orbitSpeed = orbitSpeed;
-        this.owner = owner;
+        this.owner = Owner.NONE; // Changes after colonization
+        this.colonization = 0;
 
         // Mesh
-        this.geometry = new THREE.SphereGeometry(radius, (1/(0.1 * radius)+2)*radius, (1/(0.1 * radius)+2)*radius);
+        this.geometry = new THREE.SphereGeometry(radius, (1 / (0.1 * radius) + 2) * radius, (1 / (0.1 * radius) + 2) * radius);
         this.mesh = new THREE.Mesh(this.geometry, material);
         this.mesh.rotateZ(tilt);
         this.mesh.castShadow = true;
@@ -54,38 +57,49 @@ class Ball {
         this.spaceshipGroup = new THREE.Group();
 
         // Info table
-        const elem = document.createElement('table');
-        elem.style.color = 'white';
-        const ownerRow = elem.insertRow(0);
+        const table = document.createElement('table');
+        table.style.color = 'white';
+        const ownerRow = table.insertRow(0);
         ownerRow.insertCell(0).innerHTML = '<b>Owner</b>';
         ownerRow.insertCell(1);
-        const spaceshipsRow = elem.insertRow(1);
+        const spaceshipsRow = table.insertRow(1);
         spaceshipsRow.insertCell(0).innerHTML = '<b>Spaceships</b>';
         spaceshipsRow.insertCell(1);
-        this.table = new CSS2DObject(elem);
-        this.table.position.set(0, (1/(0.1 * radius)+1.5)*radius, 0);
+        this.table = new CSS2DObject(table);
+        this.table.position.set(0, (1 / (0.1 * radius) + 1.5) * radius, 0);
         this.updateTable();
+
+        // Colonization progress bar
+        const progress = document.createElement('progress');
+        progress.value = 0;
+        progress.max = 100;
+        progress.hidden = true;
+        this.progress = new CSS2DObject(progress);
 
         // Add nodes to main group
         this.mainGroup = new THREE.Group();
         this.mainGroup.add(this.mesh);
         this.mainGroup.add(this.spaceshipGroup);
         this.mainGroup.add(this.table);
+        this.mainGroup.add(this.progress);
         this.mainGroup.position.copy(position);
     }
 
     addSpaceship = (spaceship: Spaceship) => {
+        // Start colonization if ball has no owner
+        if (this.owner === Owner.NONE) {
+            this.colonize(spaceship.owner);
+        }
         // Spaceship from enemy
-        if (spaceship.owner !== this.owner) {
+        else if (spaceship.owner !== this.owner) {
             // Enemy spaceship destroys one spaceship
             if (this.spaceships.length > 0) {
                 this.remSpaceship();
                 return;
             }
-            // Start colonization TODO: timer
+            // Start colonization if no spaceships are left
             else {
-                this.owner = spaceship.owner;
-                this.dispatcher.dispatchEvent({type: 'colonize', owner: this.owner});
+                this.colonize(spaceship.owner);
             }
         }
         // Assign random position on orbit
@@ -113,10 +127,31 @@ class Ball {
         return this.spaceships.length;
     }
 
+    colonize = (newOwner: Owner) => {
+        if (this.colonization > 0 && this.colonization < 100 || newOwner === Owner.NONE) {
+            return;
+        }
+        this.colonization = 1;
+        const id = setInterval(() => {
+            this.colonization += 1;
+            this.updateProgress();
+            if (this.colonization == 100) {
+                this.owner = newOwner;
+                this.dispatcher.dispatchEvent({type: 'colonize', owner: newOwner});
+                clearInterval(id);
+            }
+        }, 100);
+    }
+
     updateTable = () => {
         (<HTMLTableElement>this.table.element).rows[0].cells[1].innerHTML = this.owner.toString();
         (<HTMLTableElement>this.table.element).rows[0].cells[1].style.color = (this.owner === Owner.HUMAN) ? 'green' : ((this.owner === Owner.ENEMY) ? 'red' : 'white');
         (<HTMLTableElement>this.table.element).rows[1].cells[1].innerHTML = this.numSpaceships().toString() + '/' + this.maxSpaceships.toString();
+    }
+
+    updateProgress = () => {
+        (<HTMLProgressElement>this.progress.element).hidden = !(this.colonization > 0 && this.colonization < 100);
+        (<HTMLProgressElement>this.progress.element).value = this.colonization;
     }
 
     animate = () => {

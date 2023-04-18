@@ -54,7 +54,17 @@ class Factory {
                     })());
                 // Add the spaceships
                 for (let i = 0; i < args.spaceships; i++) {
-                    res.addSpaceship(new Spaceship(res.owner));
+                    res.addSpaceship(new Spaceship((() => {
+                        switch (args.owner) {
+                            case 'Human':
+                                return Owner.HUMAN;
+                            case 'Enemy':
+                                return Owner.ENEMY;
+                            case 'None':
+                            default:
+                                return Owner.NONE;
+                        }
+                    })()));
                 }
         }
         return res;
