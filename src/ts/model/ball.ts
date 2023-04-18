@@ -22,7 +22,7 @@ class Ball {
     owner: Owner;
     colonization: number;
     colonizationOwner: Owner;
-    colonizationTimer: NodeJS.Timer | null;
+    colonizationTimeout: NodeJS.Timeout | null;
 
     constructor(
         material: THREE.MeshPhongMaterial,
@@ -45,7 +45,7 @@ class Ball {
         this.owner = Owner.NONE;
         this.colonization = 0;
         this.colonizationOwner = Owner.NONE;
-        this.colonizationTimer = null;
+        this.colonizationTimeout = null;
 
         // Mesh
         this.geometry = new THREE.SphereGeometry(radius, (1 / (0.1 * radius) + 2) * radius, (1 / (0.1 * radius) + 2) * radius);
@@ -141,21 +141,21 @@ class Ball {
             return;
         }
         // Clear previous colonization by different colonizer
-        if (this.colonizationTimer !== null && colonizationOwner !== this.colonizationOwner) {
+        if (this.colonizationTimeout !== null && colonizationOwner !== this.colonizationOwner) {
             this.updateProgress(0);
-            clearInterval(this.colonizationTimer);
+            clearTimeout(this.colonizationTimeout);
         }
         this.owner = Owner.NONE;
         this.colonizationOwner = colonizationOwner;
 
-        this.colonizationTimer = setInterval(() => {
+        const increase = () => {
             // Reset colonization if no spaceships are in ball
             if (this.numSpaceships() === 0) {
                 this.colonization = 0;
                 this.colonizationOwner = Owner.NONE;
                 this.updateProgress(0);
-                if (this.colonizationTimer !== null) {
-                    clearInterval(this.colonizationTimer);
+                if (this.colonizationTimeout !== null) {
+                    clearTimeout(this.colonizationTimeout);
                 }
                 return;
             }
@@ -164,8 +164,8 @@ class Ball {
             if (this.colonization == 100) {
                 this.owner = this.colonizationOwner;
                 this.updateTable();
-                if (this.colonizationTimer !== null) {
-                    clearInterval(this.colonizationTimer);
+                if (this.colonizationTimeout !== null) {
+                    clearTimeout(this.colonizationTimeout);
                 }
                 this.dispatcher.dispatchEvent({
                     type: 'colonize',
@@ -173,7 +173,9 @@ class Ball {
                 });
                 return;
             }
-        }, 100);
+            this.colonizationTimeout = setTimeout(increase, 100/(0.1*this.numSpaceships()));
+        }
+        this.colonizationTimeout = setTimeout(increase, 100/(0.1*this.numSpaceships()));
     }
 
     updateTable = () => {
