@@ -81,9 +81,52 @@
 </div>
 
 <div id="output" style="display: none">
-    <div style="position: absolute; z-index: 1">
+    <div style="position: absolute; z-index: 6">
         <button id="btn-menu">Menu</button>
         <button id="btn-pause">Pause</button>
+    </div>
+    <div id="info" style="display: block;
+        background-color: white; padding-inline: 1rem;
+        position: absolute; z-index: 6; right: 0">
+        <h2>Information</h2>
+        <ul>
+            <li>
+                <b>Goal</b>
+                <ul>
+                    <li>Colonize all the planets in the level.</li>
+                </ul>
+            </li>
+            <li>
+                <b>Spaceships</b>
+                <ul>
+                    <li>Colonized planets produce spaceships for the owner.</li>
+                    <li>Spaceships can be sent between planets.</li>
+                    <li>Spaceships destroy enemy's spaceships in a 1:1 ratio.</li>
+                </ul>
+            </li>
+            <li>
+                <b>Colonization</b>
+                <ul>
+                    <li>Colonize a planet by sending spaceships to it.</li>
+                    <li>Process is quicker the more spaceships there are on the planet.</li>
+                    <li>Removing all spaceships during colonization interrupts the process.</li>
+                </ul>
+            </li>
+            <li>
+                <b>Controls</b>
+                <ul>
+                    <li>Click and drag to rotate the camera.</li>
+                    <li>Scroll to zoom in and out.</li>
+                    <li>
+                        Click a planet with owned spaceships to select it.
+                        <ul>
+                            <li>Left click another planet to send <u>half</u> of the spaceships.</li>
+                            <li>Right click another planet to send <u>one</u> spaceship.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
     <div id="end" style="display: none;
         background-color: white; text-align: center; width: 20rem; height: 10rem;
