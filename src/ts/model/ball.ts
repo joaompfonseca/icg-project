@@ -170,7 +170,7 @@ class Ball {
                 this.dispatcher.dispatchEvent({type: 'colonize', owner: this.colonizationOwner});
                 return;
             }
-        }, 1000);
+        }, 100);
     }
 
     updateTable = () => {
