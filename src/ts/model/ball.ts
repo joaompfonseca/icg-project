@@ -115,6 +115,7 @@ class Ball {
 
     updateTable = () => {
         (<HTMLTableElement>this.table.element).rows[0].cells[1].innerHTML = this.owner.toString();
+        (<HTMLTableElement>this.table.element).rows[0].cells[1].style.color = (this.owner === Owner.HUMAN) ? 'green' : ((this.owner === Owner.ENEMY) ? 'red' : 'white');
         (<HTMLTableElement>this.table.element).rows[1].cells[1].innerHTML = this.numSpaceships().toString() + '/' + this.maxSpaceships.toString();
     }
 
