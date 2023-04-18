@@ -62,7 +62,7 @@ class AI {
                 }
             }
         }
-        this.timeout = setTimeout(this.decide, 7000);
+        this.timeout = setTimeout(this.decide, 10000);
     }
 
     run = () => {
