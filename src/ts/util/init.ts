@@ -79,10 +79,6 @@ function initEvents(app: App) {
     document.querySelector('#level-4')!.addEventListener('click', () => initLevel(app, 4), false);
     document.querySelector('#level-5')!.addEventListener('click', () => initLevel(app, 5), false);
     document.querySelector('#level-6')!.addEventListener('click', () => initLevel(app, 6), false);
-    document.querySelector('#level-7')!.addEventListener('click', () => initLevel(app, 7), false);
-    document.querySelector('#level-8')!.addEventListener('click', () => initLevel(app, 8), false);
-    document.querySelector('#level-9')!.addEventListener('click', () => initLevel(app, 9), false);
-    document.querySelector('#level-10')!.addEventListener('click', () => initLevel(app, 10), false);
 
     // Level Events
     window.addEventListener('resize', (event: Event) => onLevelResize(event, app), false);
@@ -108,11 +104,17 @@ function initMenu(app: App) {
     app.setLevel(level);
 
     (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'block';
-    (<HTMLDivElement>document.querySelector('#end')!).style.display = 'none';
+    (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'none';
     (<HTMLDivElement>document.querySelector('#output')!).style.display = 'none';
 }
 
 function initLevel(app: App, num: number) {
+    // Level is not available
+    if (levels.length < num) {
+        initMenu(app);
+        return;
+    }
+
     // Delete all ball tables TODO: move this somewhere else, but it is needed if we go back and forth between menu and level
     app.level.balls.forEach(ball => {
         ball.mainGroup.remove(ball.table);
@@ -150,13 +152,13 @@ function initLevel(app: App, num: number) {
     app.setLevel(level);
 
     (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'none';
-    (<HTMLDivElement>document.querySelector('#end')!).style.display = 'none';
+    (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'none';
     (<HTMLDivElement>document.querySelector('#output')!).style.display = 'block';
 }
 
 function initEnd(app: App, winner: Owner) {
     (<HTMLHeadingElement>document.querySelector('#winner')!).textContent = (winner === Owner.HUMAN) ? 'You win!' : 'You lose!';
-    (<HTMLDivElement>document.querySelector('#end')!).style.display = 'block';
+    (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'block';
 }
 
 export {initEmptyScene, initEvents, initMenu, initLevel, initEnd};
