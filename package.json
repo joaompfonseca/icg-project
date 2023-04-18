@@ -1,4 +1,6 @@
 {
+  "name": "solarmax-3d",
+  "version": "0.0.0",
   "dependencies": {
     "@types/three": "^0.149.0",
     "three": "^0.150.1"
@@ -6,6 +8,7 @@
   "devDependencies": {
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.2",
     "ts-loader": "^9.4.2",
@@ -14,8 +17,13 @@
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.0"
   },
+  "repository": {
+    "url": "git+https://github.com/joaompfonseca/icg-project.git"
+  },
   "scripts": {
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   }
 }
