@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {initEmptyScene, initEvents, initMenu} from "./util/init";
+import {initEmptyScene, initEvents, initMenu, initLevel, initEnd} from "./util/init";
 import {render} from "./frame/render";
 import {animate} from "./frame/animate";
 import {Level} from "./logic/level";
@@ -19,7 +19,7 @@ class App {
     level: Level;
 
     constructor() {
-        this.level = new Level();
+        this.level = new Level(0);
         initEmptyScene(this);
         initEvents(this);
         initMenu(this);
@@ -28,11 +28,18 @@ class App {
     setLevel = (level: Level) => {
         this.scene.remove(this.level.mainGroup);
         level.dispatcher.addEventListener('end', (event: THREE.Event) => {
-            alert(`Game over! Winner: ${event.winner}`);
-            initMenu(this);
+            initEnd(this, event.winner);
         });
         this.level = level
         this.scene.add(level.mainGroup);
+    }
+
+    restartLevel = () => {
+        initLevel(this, this.level.num);
+    }
+
+    nextLevel = () => {
+        initLevel(this, this.level.num + 1);
     }
 
     togglePause = () => {

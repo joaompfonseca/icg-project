@@ -5,6 +5,7 @@ import {Owner} from './owner';
 import {Spaceship} from '../model/spaceship';
 
 class Level {
+    num: number;
     dispatcher: THREE.EventDispatcher;
     balls: Ball[];
     selected: Ball | null;
@@ -13,7 +14,8 @@ class Level {
     pathGroup: THREE.Group;
     mainGroup: THREE.Group;
 
-    constructor() {
+    constructor(num: number) {
+        this.num = num;
         this.dispatcher = new THREE.EventDispatcher();
         this.balls = [];
         this.selected = null;
@@ -65,7 +67,12 @@ class Level {
             return;
         }
         // End of level
-        this.dispatcher.dispatchEvent({type: 'end', winner: ballsOwners.has(Owner.HUMAN) ? Owner.HUMAN : Owner.ENEMY});
+        setTimeout(() => {
+            this.dispatcher.dispatchEvent({
+                type: 'end',
+                winner: ballsOwners.has(Owner.HUMAN) ? Owner.HUMAN : Owner.ENEMY
+            })
+        });
     }
 
     sendSpaceship = (fromBall: Ball, targetBall: Ball) => {

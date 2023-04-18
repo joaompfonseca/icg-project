@@ -168,7 +168,10 @@ class Ball {
                 if (this.colonizationTimer !== null) {
                     clearInterval(this.colonizationTimer);
                 }
-                this.dispatcher.dispatchEvent({type: 'colonize', owner: this.colonizationOwner});
+                this.dispatcher.dispatchEvent({
+                    type: 'colonize',
+                    owner: this.colonizationOwner
+                });
                 return;
             }
         }, 100);

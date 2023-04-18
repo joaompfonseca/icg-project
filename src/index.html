@@ -16,16 +16,66 @@
     <h2>Select a level:</h2>
     <table style="margin: auto">
         <tbody>
-        <tr><td style="padding-right: 1rem; text-align: left">1. One Giant Leap       </td><td style="padding-left: 1rem"><button id="level-1">Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">2. A New Home           </td><td style="padding-left: 1rem"><button id="level-2">Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">3. Martian Civil War    </td><td style="padding-left: 1rem"><button id="level-3">Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">4. The Red Revolution   </td><td style="padding-left: 1rem"><button id="level-4">Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">5. Asteroid Grab        </td><td style="padding-left: 1rem"><button id="level-5">Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">6. King of the Rocks    </td><td style="padding-left: 1rem"><button id="level-6">Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">7. Guardians of the Gate</td><td style="padding-left: 1rem"><button id="level-7" disabled>Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">8. New Horizons         </td><td style="padding-left: 1rem"><button id="level-8" disabled>Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">9. Garden Worlds        </td><td style="padding-left: 1rem"><button id="level-9" disabled>Play</button></td></tr>
-        <tr><td style="padding-right: 1rem; text-align: left">10. Mass Production     </td><td style="padding-left: 1rem"><button id="level-10" disabled>Play</button></td></tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">1. One Giant Leap</td>
+            <td style="padding-left: 1rem">
+                <button id="level-1">Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">2. A New Home</td>
+            <td style="padding-left: 1rem">
+                <button id="level-2">Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">3. Martian Civil War</td>
+            <td style="padding-left: 1rem">
+                <button id="level-3">Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">4. The Red Revolution</td>
+            <td style="padding-left: 1rem">
+                <button id="level-4">Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">5. Asteroid Grab</td>
+            <td style="padding-left: 1rem">
+                <button id="level-5">Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">6. King of the Rocks</td>
+            <td style="padding-left: 1rem">
+                <button id="level-6">Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">7. Guardians of the Gate</td>
+            <td style="padding-left: 1rem">
+                <button id="level-7" disabled>Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">8. New Horizons</td>
+            <td style="padding-left: 1rem">
+                <button id="level-8" disabled>Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">9. Garden Worlds</td>
+            <td style="padding-left: 1rem">
+                <button id="level-9" disabled>Play</button>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-right: 1rem; text-align: left">10. Mass Production</td>
+            <td style="padding-left: 1rem">
+                <button id="level-10" disabled>Play</button>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
@@ -34,6 +84,14 @@
     <div style="position: absolute; z-index: 1">
         <button id="btn-menu">Menu</button>
         <button id="btn-pause">Pause</button>
+    </div>
+    <div id="end" style="display: none;
+        background-color: white; text-align: center; width: 20rem; height: 10rem;
+        position: absolute; z-index: 1; top: 50%; left: 50%; margin: -5rem 0 0 -10rem">
+        <h1>Level Complete</h1>
+        <h2 id="winner"></h2>
+        <button id="btn-restart">Restart</button>
+        <button id="btn-next">Next Level</button>
     </div>
 </div>
 <script src="bundle.js" defer></script>

@@ -10,6 +10,7 @@ import {CSS2DRenderer} from 'three/examples/jsm/renderers/CSS2DRenderer';
 import levels from './../../json/levels.json';
 import {Factory} from './factory';
 import {LevelInterface} from './interface';
+import {Owner} from '../logic/owner';
 // Images
 import sbBack from '../../jpg/skybox/back.jpg';
 import sbBottom from '../../jpg/skybox/bottom.jpg';
@@ -91,7 +92,8 @@ function initEvents(app: App) {
 
     document.querySelector('#btn-menu')!.addEventListener('click', () => initMenu(app), false);
     document.querySelector('#btn-pause')!.addEventListener('click', () => app.togglePause(), false);
-
+    document.querySelector('#btn-restart')!.addEventListener('click', () => app.restartLevel(), false);
+    document.querySelector('#btn-next')!.addEventListener('click', () => app.nextLevel(), false);
 }
 
 function initMenu(app: App) {
@@ -101,18 +103,25 @@ function initMenu(app: App) {
         ball.mainGroup.remove(ball.progress);
     })
 
-    const level = new Level(); //TODO: can create a pretty bg
+    const level = new Level(0); //TODO: can create a pretty bg
 
     app.setLevel(level);
 
     (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'block';
+    (<HTMLDivElement>document.querySelector('#end')!).style.display = 'none';
     (<HTMLDivElement>document.querySelector('#output')!).style.display = 'none';
 }
 
 function initLevel(app: App, num: number) {
+    // Delete all ball tables TODO: move this somewhere else, but it is needed if we go back and forth between menu and level
+    app.level.balls.forEach(ball => {
+        ball.mainGroup.remove(ball.table);
+        ball.mainGroup.remove(ball.progress);
+    })
+
     const levelData: LevelInterface = levels[num-1];
 
-    const level = new Level();
+    const level = new Level(num);
 
     // Balls
     for (let ballData of levelData.balls) {
@@ -145,7 +154,13 @@ function initLevel(app: App, num: number) {
     app.setLevel(level);
 
     (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'none';
+    (<HTMLDivElement>document.querySelector('#end')!).style.display = 'none';
     (<HTMLDivElement>document.querySelector('#output')!).style.display = 'block';
 }
 
-export {initEmptyScene, initEvents, initMenu, initLevel};
+function initEnd(app: App, winner: Owner) {
+    (<HTMLHeadingElement>document.querySelector('#winner')!).textContent = (winner === Owner.HUMAN) ? 'You win!' : 'You lose!';
+    (<HTMLDivElement>document.querySelector('#end')!).style.display = 'block';
+}
+
+export {initEmptyScene, initEvents, initMenu, initLevel, initEnd};
