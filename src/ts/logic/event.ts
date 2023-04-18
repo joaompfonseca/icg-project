@@ -72,6 +72,7 @@ function onLevelLeftMouseClick(event: MouseEvent, app: App) {
     if (intersects.length === 0) {
         app.level.setSelected(null);
         outline.selectedObjects = [];
+        app.scene.remove(app.line);
     } else {
         const targetMesh = <THREE.Mesh>intersects[0].object;
         const targetBall = app.level.findBall(targetMesh)!;
@@ -104,6 +105,7 @@ function onLevelRightMouseClick(event: MouseEvent, app: App) {
     if (intersects.length === 0) {
         app.level.setSelected(null);
         outline.selectedObjects = [];
+        app.scene.remove(app.line);
     } else {
         const targetMesh = <THREE.Mesh>intersects[0].object;
         const targetBall = app.level.findBall(targetMesh)!;
