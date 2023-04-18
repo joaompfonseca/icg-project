@@ -71,7 +71,7 @@ function onLevelMouseClick(event: MouseEvent, app: App) {
             // Send half of the spaceships from fromBall to targetBall
             app.level.sendHalfSpaceships(fromBall, targetBall);
         }
-        else if (targetBall.owner === Owner.HUMAN) {
+        else if (targetBall.owner === Owner.HUMAN || targetBall.colonizationOwner === Owner.HUMAN) {
             app.level.setSelected(targetBall);
             outline.selectedObjects = [targetMesh];
         }

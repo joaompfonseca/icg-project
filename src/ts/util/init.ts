@@ -97,6 +97,7 @@ function initMenu(app: App) {
     // Delete all ball tables TODO: move this somewhere else, but it is needed if we go back and forth between menu and level
     app.level.balls.forEach(ball => {
         ball.mainGroup.remove(ball.table);
+        ball.mainGroup.remove(ball.progress);
     })
 
     const level = new Level(); //TODO: can create a pretty bg

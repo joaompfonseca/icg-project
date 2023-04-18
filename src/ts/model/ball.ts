@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import {MeshPhongMaterial} from 'three';
 import {Spaceship} from "./spaceship";
 import {CSS2DObject} from "three/examples/jsm/renderers/CSS2DRenderer";
 import {Owner} from "../logic/owner";
@@ -22,9 +21,11 @@ class Ball {
     mainGroup: THREE.Group;
     owner: Owner;
     colonization: number;
+    colonizationOwner: Owner;
+    colonizationTimer: NodeJS.Timer | null;
 
     constructor(
-        material: MeshPhongMaterial,
+        material: THREE.MeshPhongMaterial,
         position: THREE.Vector3,
         radius: number,
         tilt: number,
@@ -41,8 +42,10 @@ class Ball {
         this.rotationSpeed = rotationSpeed;
         this.maxSpaceships = maxSpaceships;
         this.orbitSpeed = orbitSpeed;
-        this.owner = Owner.NONE; // Changes after colonization
+        this.owner = Owner.NONE;
         this.colonization = 0;
+        this.colonizationOwner = Owner.NONE;
+        this.colonizationTimer = null;
 
         // Mesh
         this.geometry = new THREE.SphereGeometry(radius, (1 / (0.1 * radius) + 2) * radius, (1 / (0.1 * radius) + 2) * radius);
@@ -75,6 +78,7 @@ class Ball {
         progress.max = 100;
         progress.hidden = true;
         this.progress = new CSS2DObject(progress);
+        this.colonize(owner);
 
         // Add nodes to main group
         this.mainGroup = new THREE.Group();
@@ -87,11 +91,11 @@ class Ball {
 
     addSpaceship = (spaceship: Spaceship) => {
         // Start colonization if ball has no owner
-        if (this.owner === Owner.NONE) {
+        if (this.owner === Owner.NONE && this.colonizationOwner === Owner.NONE) {
             this.colonize(spaceship.owner);
         }
         // Spaceship from enemy
-        else if (spaceship.owner !== this.owner) {
+        else if ((spaceship.owner !== this.owner && this.owner !== Owner.NONE) || (spaceship.owner !== this.colonizationOwner)) {
             // Enemy spaceship destroys one spaceship
             if (this.spaceships.length > 0) {
                 this.remSpaceship();
@@ -127,20 +131,46 @@ class Ball {
         return this.spaceships.length;
     }
 
-    colonize = (newOwner: Owner) => {
-        if (this.colonization > 0 && this.colonization < 100 || newOwner === Owner.NONE) {
+    colonize = (colonizationOwner: Owner) => {
+        // Colonizer is already owner
+        if (colonizationOwner === this.owner) {
             return;
         }
-        this.colonization = 1;
-        const id = setInterval(() => {
-            this.colonization += 1;
-            this.updateProgress();
-            if (this.colonization == 100) {
-                this.owner = newOwner;
-                this.dispatcher.dispatchEvent({type: 'colonize', owner: newOwner});
-                clearInterval(id);
+        // Colonizer is already colonizing
+        if (colonizationOwner === this.colonizationOwner) {
+            return;
+        }
+        // Clear previous colonization by different colonizer
+        if (this.colonizationTimer !== null && colonizationOwner !== this.colonizationOwner) {
+            this.updateProgress(0);
+            clearInterval(this.colonizationTimer);
+        }
+        this.owner = Owner.NONE;
+        this.colonizationOwner = colonizationOwner;
+
+        this.colonizationTimer = setInterval(() => {
+            // Reset colonization if no spaceships are in ball
+            if (this.numSpaceships() === 0) {
+                this.colonization = 0;
+                this.colonizationOwner = Owner.NONE;
+                this.updateProgress(0);
+                if (this.colonizationTimer !== null) {
+                    clearInterval(this.colonizationTimer);
+                }
+                return;
             }
-        }, 100);
+            this.updateProgress(this.colonization + 1);
+            // Colonize if colonization is complete
+            if (this.colonization == 100) {
+                this.owner = this.colonizationOwner;
+                this.updateTable();
+                if (this.colonizationTimer !== null) {
+                    clearInterval(this.colonizationTimer);
+                }
+                this.dispatcher.dispatchEvent({type: 'colonize', owner: this.colonizationOwner});
+                return;
+            }
+        }, 1000);
     }
 
     updateTable = () => {
@@ -149,7 +179,8 @@ class Ball {
         (<HTMLTableElement>this.table.element).rows[1].cells[1].innerHTML = this.numSpaceships().toString() + '/' + this.maxSpaceships.toString();
     }
 
-    updateProgress = () => {
+    updateProgress = (colonization: number) => {
+        this.colonization = colonization;
         (<HTMLProgressElement>this.progress.element).hidden = !(this.colonization > 0 && this.colonization < 100);
         (<HTMLProgressElement>this.progress.element).value = this.colonization;
     }
