@@ -77,6 +77,7 @@ class Ball {
         progress.value = 0;
         progress.max = 100;
         progress.hidden = true;
+        progress.style.width = '3rem';
         this.progress = new CSS2DObject(progress);
         this.colonize(owner);
 
@@ -181,8 +182,10 @@ class Ball {
 
     updateProgress = (colonization: number) => {
         this.colonization = colonization;
-        (<HTMLProgressElement>this.progress.element).hidden = !(this.colonization > 0 && this.colonization < 100);
-        (<HTMLProgressElement>this.progress.element).value = this.colonization;
+        const progress = <HTMLProgressElement>this.progress.element;
+        progress.hidden = !(this.colonization > 0 && this.colonization < 100);
+        progress.value = this.colonization;
+        progress.style.accentColor = (this.colonizationOwner === Owner.HUMAN) ? 'green' : 'red';
     }
 
     animate = () => {
