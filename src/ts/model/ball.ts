@@ -53,7 +53,6 @@ class Ball {
         this.mesh.rotateZ(tilt);
         this.mesh.castShadow = true;
         this.mesh.receiveShadow = true;
-        this.mesh.add(new THREE.AxesHelper(2 * radius)); // TODO: remove
 
         // Spaceships
         this.spaceships = [];

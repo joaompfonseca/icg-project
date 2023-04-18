@@ -143,10 +143,6 @@ function initLevel(app: App, num: number) {
     ]);
     level.mainGroup.add(skybox);
 
-    // Coordinate axes
-    let axes = new THREE.AxesHelper(100);
-    level.mainGroup.add(axes);
-
     // Set camera position
     app.camera.position.set(150, 150, 150);
     app.camera.lookAt(0, 0, 0);
