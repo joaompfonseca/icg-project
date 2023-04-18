@@ -6,6 +6,7 @@ import {animate} from "./frame/animate";
 import {Level} from "./logic/level";
 import {EffectComposer} from "three/examples/jsm/postprocessing/EffectComposer";
 import {CSS2DRenderer} from "three/examples/jsm/renderers/CSS2DRenderer";
+import {AI} from "./logic/ai";
 
 class App {
 
@@ -17,6 +18,7 @@ class App {
     line: THREE.Line;
     control: OrbitControls;
     level: Level;
+    ai: AI;
 
     constructor() {
         this.level = new Level(0);

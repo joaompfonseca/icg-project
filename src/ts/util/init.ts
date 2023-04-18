@@ -18,6 +18,7 @@ import sbFront from '../../jpg/skybox/front.jpg';
 import sbLeft from '../../jpg/skybox/left.jpg';
 import sbRight from '../../jpg/skybox/right.jpg';
 import sbTop from '../../jpg/skybox/top.jpg';
+import {AI} from "../logic/ai";
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -103,7 +104,9 @@ function initMenu(app: App) {
     app.level.balls.forEach(ball => {
         ball.mainGroup.remove(ball.table);
         ball.mainGroup.remove(ball.progress);
-    })
+        ball.colonizationTimeout && clearTimeout(ball.colonizationTimeout);
+    });
+    app.ai?.stop();
 
     const level = new Level(0); //TODO: can create a pretty bg
 
@@ -115,18 +118,19 @@ function initMenu(app: App) {
 }
 
 function initLevel(app: App, num: number) {
+    // Delete all ball tables TODO: move this somewhere else, but it is needed if we go back and forth between menu and level
+    app.level.balls.forEach(ball => {
+        ball.mainGroup.remove(ball.table);
+        ball.mainGroup.remove(ball.progress);
+        ball.colonizationTimeout && clearTimeout(ball.colonizationTimeout);
+    });
+    app.ai?.stop();
+
     // Level is not available
     if (levels.length < num) {
         initMenu(app);
         return;
     }
-
-    // Delete all ball tables TODO: move this somewhere else, but it is needed if we go back and forth between menu and level
-    app.level.balls.forEach(ball => {
-        ball.mainGroup.remove(ball.table);
-        ball.mainGroup.remove(ball.progress);
-    })
-
     const levelData: LevelInterface = levels[num-1];
 
     const level = new Level(num);
@@ -156,6 +160,10 @@ function initLevel(app: App, num: number) {
     app.camera.lookAt(0, 0, 0);
 
     app.setLevel(level);
+
+    // Create the enemy AI
+    app.ai = new AI(level, Owner.ENEMY);
+    app.ai.run();
 
     (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'none';
     (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'none';
