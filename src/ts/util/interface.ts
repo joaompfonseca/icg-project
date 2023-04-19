@@ -1,4 +1,5 @@
 interface LevelInterface {
+    "title": string;
     "balls": BallInterface[];
 }
 

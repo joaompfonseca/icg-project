@@ -1,5 +1,6 @@
 [
   {
+    "title": "One Giant Leap",
     "balls": [
       {
         "class": "Planet",
@@ -46,6 +47,7 @@
     ]
   },
   {
+    "title": "A New Home",
     "balls": [
       {
         "class": "Planet",
@@ -155,6 +157,7 @@
     ]
   },
   {
+    "title": "Martian Civil War",
     "balls": [
       {
         "class": "Planet",
@@ -222,6 +225,7 @@
     ]
   },
   {
+    "title": "The Red Revolution",
     "balls": [
       {
         "class": "Planet",
@@ -331,6 +335,7 @@
     ]
   },
   {
+    "title": "Asteroid Grab",
     "balls": [
       {
         "class": "Planet",
@@ -503,6 +508,7 @@
     ]
   },
   {
+    "title": "King of the Rocks",
     "balls": [
       {
         "class": "Planet",

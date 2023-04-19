@@ -176,6 +176,7 @@ function initLevel(app: App, num: number) {
     app.ai.run();
 
     (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'none';
+    (<HTMLHeadingElement>document.querySelector('#title')!).textContent = `${num}. ${levelData.title}`;
     (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'none';
     (<HTMLDivElement>document.querySelector('#output')!).style.display = 'block';
 }
