@@ -96,9 +96,18 @@ class Level {
 
     sendHalfSpaceships = async (fromBall: Ball, targetBall: Ball) => {
         const half = Math.floor(fromBall.numSpaceships() / 2);
+        const spaceships: Spaceship[] = [];
         for (let i = 0; i < half; i++) {
-            this.sendSpaceship(fromBall, targetBall);
-            await new Promise(resolve => setTimeout(resolve, 50)); // TODO: maybe change this
+            const spaceship = fromBall.remSpaceship();
+            if (spaceship) {
+                spaceships.push(spaceship);
+            }
+        }
+        for (let spaceship of spaceships) {
+            const path = new Path(fromBall, targetBall, spaceship);
+            this.paths.push(path);
+            this.pathGroup.add(spaceship.mesh);
+            await new Promise(resolve => setTimeout(resolve, 50));
         }
     }
 

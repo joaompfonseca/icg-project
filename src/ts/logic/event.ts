@@ -24,7 +24,7 @@ function onLevelMouseMove(event: MouseEvent, app: App) {
     // Post-processing outline
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
 
-    if (intersects.length === 0) {
+    if (intersects.length === 0 || app.level.isBallSelected() && app.level.selected!.colonizationOwner !== Owner.HUMAN) {
         if (app.level.isBallSelected()) {
             outline.selectedObjects = [app.level.selected!.mesh];
         } else {
@@ -69,7 +69,7 @@ function onLevelLeftMouseClick(event: MouseEvent, app: App) {
     // Post-processing outline
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
 
-    if (intersects.length === 0) {
+    if (intersects.length === 0 || app.level.isBallSelected() && app.level.selected!.colonizationOwner !== Owner.HUMAN) {
         app.level.setSelected(null);
         outline.selectedObjects = [];
         app.scene.remove(app.line);
@@ -102,7 +102,7 @@ function onLevelRightMouseClick(event: MouseEvent, app: App) {
     // Post-processing outline
     const outline = app.composer.passes.find(pass => pass instanceof OutlinePass) as OutlinePass;
 
-    if (intersects.length === 0) {
+    if (intersects.length === 0 || app.level.isBallSelected() && app.level.selected!.colonizationOwner !== Owner.HUMAN) {
         app.level.setSelected(null);
         outline.selectedObjects = [];
         app.scene.remove(app.line);
