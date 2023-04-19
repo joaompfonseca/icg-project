@@ -3,11 +3,13 @@ import {Ball} from '../model/ball';
 import {Path} from './path';
 import {Owner} from './owner';
 import {Spaceship} from '../model/spaceship';
+import {Star} from "../model/star";
 
 class Level {
     num: number;
     dispatcher: THREE.EventDispatcher;
     balls: Ball[];
+    stars: Star[];
     selected: Ball | null;
     paths: Path[];
     paused: boolean;
@@ -18,6 +20,7 @@ class Level {
         this.num = num;
         this.dispatcher = new THREE.EventDispatcher();
         this.balls = [];
+        this.stars = [];
         this.selected = null;
         this.paused = false;
 
@@ -52,6 +55,11 @@ class Level {
     findBall = (mesh: THREE.Mesh) => {
         const ball = this.balls.find(ball => ball.mesh === mesh);
         return (ball !== undefined) ? ball : null;
+    }
+
+    addStar = (star: Star) => {
+        this.stars.push(star);
+        this.mainGroup.add(star.mainGroup);
     }
 
     setSelected = (ball: Ball | null) => {

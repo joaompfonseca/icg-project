@@ -11,6 +11,8 @@ import levels from './../../json/levels.json';
 import {Factory} from './factory';
 import {LevelInterface} from './interface';
 import {Owner} from '../logic/owner';
+import {AI} from '../logic/ai';
+import {Star} from '../model/star';
 // Images
 import sbBack from '../../jpg/skybox/back.jpg';
 import sbBottom from '../../jpg/skybox/bottom.jpg';
@@ -18,7 +20,7 @@ import sbFront from '../../jpg/skybox/front.jpg';
 import sbLeft from '../../jpg/skybox/left.jpg';
 import sbRight from '../../jpg/skybox/right.jpg';
 import sbTop from '../../jpg/skybox/top.jpg';
-import {AI} from "../logic/ai";
+import starMap from '../../jpg/balls/star.jpg';
 
 function initEmptyScene(app: App) {
     // SCENE
@@ -29,13 +31,9 @@ function initEmptyScene(app: App) {
     camera.position.set(75, 75, 75);
     camera.lookAt(0, 0, 0);
 
-    // ILLUMINATION TODO
+    // ILLUMINATION
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
     scene.add(ambientLight);
-    const spotlight = new THREE.SpotLight(0xffffff);
-    spotlight.position.set(100, 300, 100);
-    spotlight.castShadow = true;
-    scene.add(spotlight);
 
     // RENDERER
     const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
@@ -137,7 +135,7 @@ function initLevel(app: App, num: number) {
         initMenu(app);
         return;
     }
-    const levelData: LevelInterface = levels[num-1];
+    const levelData: LevelInterface = levels[num - 1];
 
     const level = new Level(num);
 
@@ -149,9 +147,15 @@ function initLevel(app: App, num: number) {
         }
     }
 
+    // Star
+    const star = new Star(
+        new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load(starMap), shininess: 1, emissive: 0xFFA500, emissiveIntensity: 0.7}),
+        new THREE.Vector3(0, 500, 500), 100, 0, 0, 0, 0, Owner.NONE);
+    level.addStar(star);
+
     // Skybox
     const skyboxGeometry = new THREE.BoxGeometry(10000, 10000, 10000);
-    const skybox = new THREE.Mesh(skyboxGeometry,[
+    const skybox = new THREE.Mesh(skyboxGeometry, [
         new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbRight), side: THREE.BackSide}),
         new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbLeft), side: THREE.BackSide}),
         new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load(sbTop), side: THREE.BackSide}),
