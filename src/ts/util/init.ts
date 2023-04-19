@@ -183,6 +183,7 @@ function initLevel(app: App, num: number) {
 function initEnd(app: App, winner: Owner) {
     (<HTMLHeadingElement>document.querySelector('#winner')!).textContent = (winner === Owner.HUMAN) ? 'You win!' : 'You lose!';
     (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'block';
+    (<HTMLButtonElement>document.querySelector('#btn-end-next')!).style.display = (winner === Owner.ENEMY) ? 'none' : '';
 }
 
 function toggleInfo() {
