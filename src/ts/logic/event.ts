@@ -129,6 +129,11 @@ function onKeyDown(event: KeyboardEvent, app: App) {
         case 'm':
             initMenu(app);
             break;
+        case 'n':
+            if (app.level.ended) {
+                app.nextLevel();
+            }
+            break;
         case 'p':
             app.togglePause();
             break;
