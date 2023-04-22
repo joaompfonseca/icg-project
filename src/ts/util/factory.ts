@@ -8,7 +8,10 @@ import {Spaceship} from '../model/spaceship';
 import earthMap from '../../jpg/balls/earth.jpg';
 import marsMap from '../../jpg/balls/mars.jpg';
 import moonMap from '../../jpg/balls/moon.jpg';
-import defaultMap from '../../jpg/balls/default.jpg';
+import defaultCeresMap from '../../jpg/balls/default_ceres.jpg';
+import defaultErisMap from '../../jpg/balls/default_eris.jpg';
+import defaultHaumeaMap from '../../jpg/balls/default_haumea.jpg';
+import defaultMakemakeMap from '../../jpg/balls/default_makemake.jpg';
 
 class Factory {
     static createBall = (ballData: BallInterface): Ball | null => {
@@ -27,9 +30,16 @@ class Factory {
                                         return marsMap;
                                     case 'moon':
                                         return moonMap;
-                                    case 'default':
+                                    case 'default_ceres':
+                                        return defaultCeresMap;
+                                    case 'default_eris':
+                                        return defaultErisMap;
+                                    case 'default_haumea':
+                                        return defaultHaumeaMap;
+                                    case 'default_makemake':
+                                        return defaultMakemakeMap;
                                     default:
-                                        return defaultMap;
+                                        return 'default_ceres';
                                 }
                             }
                         )()),

@@ -116,7 +116,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_ceres",
             "shininess": 1
           },
           "position": {
@@ -137,7 +137,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_eris",
             "shininess": 1
           },
           "position": {
@@ -184,7 +184,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_makemake",
             "shininess": 1
           },
           "position": {
@@ -205,7 +205,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_ceres",
             "shininess": 1
           },
           "position": {
@@ -294,7 +294,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_haumea",
             "shininess": 1
           },
           "position": {
@@ -315,7 +315,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_makemake",
             "shininess": 1
           },
           "position": {
@@ -362,7 +362,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_makemake",
             "shininess": 1
           },
           "position": {
@@ -383,7 +383,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_haumea",
             "shininess": 1
           },
           "position": {
@@ -404,7 +404,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_ceres",
             "shininess": 1
           },
           "position": {
@@ -425,7 +425,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_haumea",
             "shininess": 1
           },
           "position": {
@@ -446,7 +446,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_eris",
             "shininess": 1
           },
           "position": {
@@ -467,7 +467,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_makemake",
             "shininess": 1
           },
           "position": {
@@ -488,7 +488,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_ceres",
             "shininess": 1
           },
           "position": {
@@ -514,7 +514,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_haumea",
             "shininess": 1
           },
           "position": {
@@ -535,7 +535,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_makemake",
             "shininess": 1
           },
           "position": {
@@ -556,7 +556,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_ceres",
             "shininess": 1
           },
           "position": {
@@ -577,7 +577,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_eris",
             "shininess": 1
           },
           "position": {
@@ -598,7 +598,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_haumea",
             "shininess": 1
           },
           "position": {
@@ -619,7 +619,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_makemake",
             "shininess": 1
           },
           "position": {
@@ -640,7 +640,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_ceres",
             "shininess": 1
           },
           "position": {
@@ -661,7 +661,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_eris",
             "shininess": 1
           },
           "position": {
@@ -682,7 +682,7 @@
         "class": "Planet",
         "args": {
           "material": {
-            "map": "default",
+            "map": "default_haumea",
             "shininess": 1
           },
           "position": {
