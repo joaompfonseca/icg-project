@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {initEmptyScene, initEvents, initMenu, initLevel, initEnd} from "./util/init";
+import {initEmptyScene, initEvents, initMenu, initLevel, initEnd, togglePause, toggleInfo} from "./util/init";
 import {render} from "./frame/render";
 import {animate} from "./frame/animate";
 import {Level} from "./logic/level";
@@ -46,7 +46,12 @@ class App {
 
     togglePause = () => {
         this.level.togglePause();
+        togglePause();
         this.nextFrame();
+    }
+
+    toggleInfo = () => {
+        toggleInfo();
     }
 
     run = () => {

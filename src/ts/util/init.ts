@@ -89,7 +89,7 @@ function initEvents(app: App) {
     document.querySelector('#btn-navbar-menu')!.addEventListener('click', () => initMenu(app), false);
     document.querySelector('#btn-navbar-restart')!.addEventListener('click', () => app.restartLevel(), false);
     document.querySelector('#btn-navbar-pause')!.addEventListener('click', () => app.togglePause(), false);
-    document.querySelector('#btn-navbar-info')!.addEventListener('click', () => toggleInfo(), false);
+    document.querySelector('#btn-navbar-info')!.addEventListener('click', () => app.toggleInfo(), false);
 
     // End Events
     document.querySelector('#btn-end-menu')!.addEventListener('click', () => initMenu(app), false);
@@ -116,7 +116,7 @@ function initMenu(app: App) {
 
     app.setLevel(level);
 
-    (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'block';
+    (<HTMLDivElement>document.querySelector('#menu')!).style.display = '';
     (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'none';
     (<HTMLDivElement>document.querySelector('#output')!).style.display = 'none';
 }
@@ -181,17 +181,21 @@ function initLevel(app: App, num: number) {
     (<HTMLDivElement>document.querySelector('#menu')!).style.display = 'none';
     (<HTMLHeadingElement>document.querySelector('#title')!).textContent = `${num}. ${levelData.title}`;
     (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'none';
-    (<HTMLDivElement>document.querySelector('#output')!).style.display = 'block';
+    (<HTMLDivElement>document.querySelector('#output')!).style.display = '';
 }
 
 function initEnd(app: App, winner: Owner) {
     (<HTMLHeadingElement>document.querySelector('#winner')!).textContent = (winner === Owner.HUMAN) ? 'You win!' : 'You lose!';
-    (<HTMLDialogElement>document.querySelector('#end')!).style.display = 'block';
+    (<HTMLDialogElement>document.querySelector('#end')!).style.display = '';
     (<HTMLButtonElement>document.querySelector('#btn-end-next')!).style.display = (winner === Owner.ENEMY) ? 'none' : '';
 }
 
-function toggleInfo() {
-    (<HTMLDivElement>document.querySelector('#info')!).style.display = (<HTMLDivElement>document.querySelector('#info')!).style.display === 'none' ? 'block' : 'none';
+function togglePause() {
+    (<HTMLDivElement>document.querySelector('#pause')!).style.display = (<HTMLDivElement>document.querySelector('#pause')!).style.display === '' ? 'none' : '';
 }
 
-export {initEmptyScene, initEvents, initMenu, initLevel, initEnd, toggleInfo};
+function toggleInfo() {
+    (<HTMLDivElement>document.querySelector('#info')!).style.display = (<HTMLDivElement>document.querySelector('#info')!).style.display === '' ? 'none' : '';
+}
+
+export {initEmptyScene, initEvents, initMenu, initLevel, initEnd, togglePause, toggleInfo};
