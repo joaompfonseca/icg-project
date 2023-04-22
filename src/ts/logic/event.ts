@@ -1,7 +1,8 @@
-import * as THREE from "three";
-import {App} from "../app";
-import {OutlinePass} from "three/examples/jsm/postprocessing/OutlinePass";
-import {Owner} from "./owner";
+import * as THREE from 'three';
+import {App} from '../app';
+import {OutlinePass} from 'three/examples/jsm/postprocessing/OutlinePass';
+import {Owner} from './owner';
+import {initMenu, toggleInfo} from '../util/init';
 
 function onLevelResize(event: Event, app: App) {
     app.camera.aspect = window.innerWidth / window.innerHeight;
@@ -120,4 +121,23 @@ function onLevelRightMouseClick(event: MouseEvent, app: App) {
     }
 }
 
-export {onLevelResize, onLevelMouseMove, onLevelLeftMouseClick, onLevelRightMouseClick};
+function onKeyDown(event: KeyboardEvent, app: App) {
+    switch (event.key) {
+        case 'i':
+            toggleInfo();
+            break;
+        case 'm':
+            initMenu(app);
+            break;
+        case 'p':
+            app.togglePause();
+            break;
+        case 'r':
+            app.restartLevel();
+            break;
+        default:
+            break;
+    }
+}
+
+export {onLevelResize, onLevelMouseMove, onLevelLeftMouseClick, onLevelRightMouseClick, onKeyDown};

@@ -5,7 +5,7 @@ import {OutlinePass} from 'three/examples/jsm/postprocessing/OutlinePass';
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass';
 import {App} from '../app';
 import {Level} from '../logic/level';
-import {onLevelResize, onLevelMouseMove, onLevelLeftMouseClick, onLevelRightMouseClick} from '../logic/event';
+import {onLevelResize, onLevelMouseMove, onLevelLeftMouseClick, onLevelRightMouseClick, onKeyDown} from '../logic/event';
 import {CSS2DRenderer} from 'three/examples/jsm/renderers/CSS2DRenderer';
 import levels from './../../json/levels.json';
 import {Factory} from './factory';
@@ -95,6 +95,9 @@ function initEvents(app: App) {
     document.querySelector('#btn-end-menu')!.addEventListener('click', () => initMenu(app), false);
     document.querySelector('#btn-end-restart')!.addEventListener('click', () => app.restartLevel(), false);
     document.querySelector('#btn-end-next')!.addEventListener('click', () => app.nextLevel(), false);
+
+    // Keyboard Events
+    document.addEventListener('keydown', (event: KeyboardEvent) => onKeyDown(event, app),false);
 }
 
 function initMenu(app: App) {
@@ -191,4 +194,4 @@ function toggleInfo() {
     (<HTMLDivElement>document.querySelector('#info')!).style.display = (<HTMLDivElement>document.querySelector('#info')!).style.display === 'none' ? 'block' : 'none';
 }
 
-export {initEmptyScene, initEvents, initMenu, initLevel, initEnd};
+export {initEmptyScene, initEvents, initMenu, initLevel, initEnd, toggleInfo};
