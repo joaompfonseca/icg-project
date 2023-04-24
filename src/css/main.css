@@ -1,4 +1,81 @@
+/* HTML */
+* {
+    font-family: Unispace, serif;
+}
+
 body {
     margin: 0;
     height: 100vh;
+}
+
+button {
+    background-color: #341351;
+    color: #fff;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #672893;
+}
+
+/* IDs */
+#menu {
+    background-color: #A0A0A0;
+    text-align: center;
+    border-radius: 2rem;
+    padding: 1rem;
+    position: absolute;
+    z-index: 100;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+}
+
+#navbar {
+    background-color: #A0A0A0;
+    border-radius: 0 0 2rem 0;
+    padding: 1rem;
+    position: absolute;
+    z-index: 100;
+}
+
+#info {
+    background-color: #A0A0A0;
+    border-radius: 0 0 0 2rem;
+    padding-inline: 1rem;
+    font-size: 0.8rem;
+    position: absolute;
+    z-index: 100;
+    right: 0;
+}
+
+#info ul {
+    margin-bottom: 1rem
+}
+
+#end {
+    background-color: #A0A0A0;
+    text-align: center;
+    border-radius: 2rem;
+    padding: 1rem;
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#pause {
+    background-color: #A0A0A0;
+    text-align: center;
+    border-radius: 2rem;
+    padding-inline: 1rem;
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
