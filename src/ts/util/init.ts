@@ -112,7 +112,7 @@ function initMenu(app: App) {
         app.togglePause();
     }
 
-    const level = new Level(0); //TODO: can create a pretty bg
+    const level = new Level(0);
 
     app.setLevel(level);
 

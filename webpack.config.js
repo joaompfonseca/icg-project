@@ -23,8 +23,8 @@ module.exports = {
                 use: 'shader-loader'
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
-                use: 'file-loader'
+                test: /\.(jpg|png|svg|gif)$/,
+                type: 'asset/resource',
             },
             {
                 test: /\.json$/i,
