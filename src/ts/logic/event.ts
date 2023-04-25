@@ -130,7 +130,7 @@ function onKeyDown(event: KeyboardEvent, app: App) {
             initMenu(app);
             break;
         case 'n':
-            if (app.level.ended) {
+            if (app.level.ended && app.level.winner == Owner.HUMAN) {
                 app.nextLevel();
             }
             break;

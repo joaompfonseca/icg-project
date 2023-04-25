@@ -14,6 +14,7 @@ class Level {
     paths: Path[];
     paused: boolean;
     ended: boolean;
+    winner: Owner;
     pathGroup: THREE.Group;
     mainGroup: THREE.Group;
 
@@ -78,12 +79,14 @@ class Level {
         if (ballsOwners.size !== 1 || ballsOwners.has(Owner.NONE)) {
             return;
         }
+        const winner = ballsOwners.has(Owner.HUMAN) ? Owner.HUMAN : Owner.ENEMY;
         // End of level
         this.dispatcher.dispatchEvent({
             type: 'end',
-            winner: ballsOwners.has(Owner.HUMAN) ? Owner.HUMAN : Owner.ENEMY
+            winner: winner
         });
         this.ended = true;
+        this.winner = winner;
     }
 
     sendSpaceship = (fromBall: Ball, targetBall: Ball) => {
