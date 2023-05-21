@@ -14,10 +14,15 @@ class Star extends Ball {
         owner: Owner
     ) {
         super(material, position, radius, tilt, rotationSpeed, maxSpaceships, orbitSpeed, owner);
+        this.material.transparent = true;
+        this.mesh.castShadow = false;
         this.table.element.hidden = true;
 
         // Emit light
         const light = new THREE.PointLight(0xffffff, 1, 10000);
+        light.shadow.mapSize.width = 2048;
+        light.shadow.mapSize.height = 2048;
+        light.castShadow = true;
         this.mainGroup.add(light);
     }
 

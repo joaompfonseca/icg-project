@@ -15,9 +15,7 @@ class Spaceship {
         this.geometry = new THREE.ConeGeometry(0.5, 2, 4);
         this.geometry.rotateX(Math.PI / 2);
         this.material = new THREE.MeshPhongMaterial({
-            color: (this.owner === Owner.HUMAN) ? 0x00ff00 : 0xff0000,
-            emissive: (this.owner === Owner.HUMAN) ? 0x00ff00 : 0xff0000,
-            emissiveIntensity: 1,
+            color: (this.owner === Owner.HUMAN) ? 0x00ff00 : 0xff0000
         });
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.mesh.castShadow = true;

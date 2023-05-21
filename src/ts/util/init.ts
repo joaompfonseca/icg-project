@@ -40,6 +40,7 @@ function initEmptyScene(app: App) {
     renderer.setClearColor(new THREE.Color(0xffffff));
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.shadowMap.enabled = true;
     document.querySelector('#output')!.appendChild(renderer.domElement);
 
@@ -153,7 +154,7 @@ function initLevel(app: App, num: number) {
     // Star
     const star = new Star(
         new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load(starMap), shininess: 1, emissive: 0xFFA500, emissiveIntensity: 0.7}),
-        new THREE.Vector3(0, 500, 500), 100, 0, 0, 0, 0, Owner.NONE);
+        new THREE.Vector3(0, 100, 1000), 100, 0, 0, 0, 0, Owner.NONE);
     level.addStar(star);
 
     // Skybox
