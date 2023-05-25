@@ -8,7 +8,7 @@ The main purpose of this application is to demonstrate the use of the JavaScript
 
 **Deployment:** [Solarmax 3D @ GitHub](https://joaompfonseca.github.io/icg-project/)
 
-**Course:** Introduction to Computer Grahpics (2022/2023).
+**Course:** Introduction to Computer Graphics (2022/2023).
 
 ## Author
 
